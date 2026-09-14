@@ -1,0 +1,50 @@
+{
+ "abstained_cues": [],
+ "coaching": null,
+ "diagnostics": {
+  "cue_results": [],
+  "segmentation": null,
+  "station": {
+   "requested": "S-LAT",
+   "verification": "unavailable until equipment anchoring (M5)",
+   "verified": false
+  },
+  "subject_selection": {
+   "ambiguous": false,
+   "candidates": [
+    {
+     "anchor_proximity": 0.0,
+     "area": 0.23,
+     "centrality": 0.936,
+     "coverage": 0.5082,
+     "detections": 527,
+     "motion": 0.0038,
+     "persistence": 0.5082,
+     "score": 1.0
+    }
+   ],
+   "reason": "subject_intermittently_detected"
+  }
+ },
+ "exercise": {
+  "id": "lat_pulldown",
+  "name": "Lat pulldown",
+  "notes": [
+   "Form-error detection isn't validated for this exercise yet. Showing rep quality metrics only.",
+   "These rep metrics haven't yet been checked against hand-annotated clips, so treat them as provisional."
+  ],
+  "tier": "B",
+  "tier_validated": false
+ },
+ "fired_cues": [],
+ "manifest_hash": "f4aca099535aee66582e1e87712da5c4e0a7da1d1eb0d6c141f5c99aa87f5c02",
+ "not_assessed": [],
+ "schema_version": 1,
+ "set_summary": null,
+ "status": "abstained",
+ "submission_abstention": {
+  "copy": "We kept losing sight of you during the set, so the rep count wouldn't be reliable. Reshoot with your whole body in frame and nothing between you and the phone.",
+  "reason": "subject_intermittently_detected"
+ },
+ "trend": null
+}

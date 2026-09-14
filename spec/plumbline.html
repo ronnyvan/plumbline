@@ -1,0 +1,1504 @@
+<title>Plumbline</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&display=swap">
+<style>
+:root{
+  --ground:#F2F3F0; --surface:#FBFBFA; --surface-2:#E9EBE7; --surface-3:#DFE2DD;
+  --ink:#16191C; --ink-2:#454C52; --ink-3:#6E767C;
+  --rule:#D3D7D1; --rule-strong:#B4BAB4;
+  --accent:#1F4E5F; --accent-soft:#E0EAED; --accent-line:#8FB4BF;
+  --ok:#2E6B4F; --ok-soft:#E1EDE6;
+  --warn:#8A5E16; --warn-soft:#F1E8D8;
+  --stop:#8C3A2B; --stop-soft:#F2E3DF;
+  --f-head:"IBM Plex Sans Condensed","Helvetica Neue",Arial,sans-serif;
+  --f-body:"IBM Plex Serif",Georgia,"Times New Roman",serif;
+  --f-mono:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ground:#14171A; --surface:#1B1F23; --surface-2:#22272B; --surface-3:#2B3136;
+    --ink:#E7E9E5; --ink-2:#A8B0B4; --ink-3:#7C858A;
+    --rule:#2E353A; --rule-strong:#414A50;
+    --accent:#6FB0C4; --accent-soft:#1A2C33; --accent-line:#39616E;
+    --ok:#6FBF95; --ok-soft:#16271D;
+    --warn:#D9A548; --warn-soft:#2A2416;
+    --stop:#D98872; --stop-soft:#2B1C18;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#14171A; --surface:#1B1F23; --surface-2:#22272B; --surface-3:#2B3136;
+  --ink:#E7E9E5; --ink-2:#A8B0B4; --ink-3:#7C858A;
+  --rule:#2E353A; --rule-strong:#414A50;
+  --accent:#6FB0C4; --accent-soft:#1A2C33; --accent-line:#39616E;
+  --ok:#6FBF95; --ok-soft:#16271D;
+  --warn:#D9A548; --warn-soft:#2A2416;
+  --stop:#D98872; --stop-soft:#2B1C18;
+}
+*{box-sizing:border-box}
+body{background:var(--ground);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.62;-webkit-font-smoothing:antialiased}
+.wrap{display:grid;grid-template-columns:266px minmax(0,1fr);max-width:1240px;margin:0 auto}
+
+.side{position:sticky;top:0;align-self:start;max-height:100vh;overflow-y:auto;padding:34px 22px 60px 26px;border-right:1px solid var(--rule)}
+.side .mark{font-family:var(--f-head);font-weight:700;font-size:21px;margin:0 0 2px}
+.side .sub{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);margin:0 0 22px}
+.side nav ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:1px}
+.side nav a{display:grid;grid-template-columns:26px 1fr;gap:6px;text-decoration:none;color:var(--ink-2);font-family:var(--f-head);font-size:13.5px;font-weight:500;padding:4px 6px;border-radius:2px;line-height:1.35}
+.side nav a:hover{background:var(--surface-2);color:var(--ink)}
+.side nav a:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.side nav .n{font-family:var(--f-mono);font-size:11px;color:var(--ink-3);padding-top:1px}
+
+main{padding:34px 46px 120px 46px;min-width:0}
+.masthead{border-bottom:2px solid var(--ink);padding-bottom:16px}
+.eyebrow{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin:0 0 10px}
+h1{font-family:var(--f-head);font-size:44px;font-weight:700;line-height:1.02;letter-spacing:-.012em;margin:0 0 8px;text-wrap:balance}
+.deck{font-size:17px;color:var(--ink-2);margin:0;max-width:62ch;line-height:1.55}
+.docctl{display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));border-bottom:1px solid var(--rule);margin:0 0 40px}
+.docctl div{padding:11px 14px 11px 0;border-right:1px solid var(--rule)}
+.docctl div:last-child{border-right:0}
+.docctl dt{font-family:var(--f-mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin:0 0 3px}
+.docctl dd{font-family:var(--f-head);font-size:13.5px;font-weight:600;margin:0;color:var(--ink)}
+
+section{margin:0 0 54px;scroll-margin-top:20px}
+h2{font-family:var(--f-head);font-size:15px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;margin:0 0 20px;padding-bottom:7px;border-bottom:1px solid var(--rule-strong);display:grid;grid-template-columns:38px 1fr;gap:4px;align-items:baseline}
+h2 .n{font-family:var(--f-mono);font-weight:400;color:var(--accent);font-size:13px;letter-spacing:0}
+h3{font-family:var(--f-head);font-size:19px;font-weight:600;letter-spacing:-.005em;margin:34px 0 9px;text-wrap:balance}
+h3 .n{font-family:var(--f-mono);font-size:12.5px;font-weight:400;color:var(--ink-3);margin-right:8px}
+h4{font-family:var(--f-head);font-size:14.5px;font-weight:600;margin:22px 0 6px;color:var(--ink)}
+p{margin:0 0 13px;max-width:68ch}
+ul,ol{margin:0 0 14px;padding-left:20px;max-width:68ch}
+li{margin-bottom:5px}
+a{color:var(--accent)}
+code{font-family:var(--f-mono);font-size:.855em;background:var(--surface-2);padding:1px 4px;border-radius:2px;color:var(--ink)}
+.lede{font-size:17.5px;line-height:1.55;color:var(--ink);border-left:3px solid var(--accent);padding-left:18px;margin:0 0 22px;max-width:64ch}
+
+.item{display:grid;grid-template-columns:64px 1fr;gap:14px;padding:11px 0;border-top:1px solid var(--rule);max-width:74ch;align-items:start}
+.item:last-of-type{border-bottom:1px solid var(--rule)}
+.item .tag{font-family:var(--f-mono);font-size:11px;font-weight:500;color:var(--accent);padding-top:3px}
+.item.risk .tag{color:var(--stop)}
+.item.q .tag{color:var(--warn)}
+.item p{margin:0 0 5px;font-size:15px}
+.item .t{font-family:var(--f-head);font-weight:600;font-size:15px;display:block;margin-bottom:2px}
+
+.tw{overflow-x:auto;margin:0 0 20px;border:1px solid var(--rule)}
+table{border-collapse:collapse;width:100%;font-size:13.5px;font-family:var(--f-head);background:var(--surface)}
+caption{text-align:left;font-family:var(--f-mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);padding:9px 12px;background:var(--surface-2);border-bottom:1px solid var(--rule)}
+th{text-align:left;font-weight:600;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2);padding:8px 12px;border-bottom:1px solid var(--rule-strong);vertical-align:bottom;white-space:nowrap}
+td{padding:8px 12px;border-bottom:1px solid var(--rule);vertical-align:top;line-height:1.45}
+tbody tr:last-child td{border-bottom:0}
+td.m,th.m{font-family:var(--f-mono);font-variant-numeric:tabular-nums;font-size:12.5px;white-space:nowrap}
+td.id{font-family:var(--f-mono);font-size:12px;color:var(--accent);white-space:nowrap}
+
+.pill{display:inline-block;font-family:var(--f-mono);font-size:10px;letter-spacing:.05em;text-transform:uppercase;padding:1.5px 6px;border-radius:2px;white-space:nowrap;font-weight:500}
+.pill.ok{background:var(--ok-soft);color:var(--ok);border:1px solid var(--ok)}
+.pill.warn{background:var(--warn-soft);color:var(--warn);border:1px solid var(--warn)}
+.pill.stop{background:var(--stop-soft);color:var(--stop);border:1px solid var(--stop)}
+.pill.na{background:var(--surface-2);color:var(--ink-3);border:1px solid var(--rule-strong)}
+
+.note{border:1px solid var(--rule-strong);background:var(--surface);padding:14px 17px;margin:0 0 20px;max-width:70ch;border-left:3px solid var(--accent)}
+.note.stop{border-left-color:var(--stop)}
+.note.ok{border-left-color:var(--ok)}
+.note .h{font-family:var(--f-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin:0 0 6px}
+.note p{margin:0 0 8px;font-size:15px}
+.note p:last-child{margin:0}
+
+pre{font-family:var(--f-mono);font-size:12.3px;line-height:1.55;background:var(--surface);border:1px solid var(--rule);padding:13px 15px;overflow-x:auto;margin:0 0 20px;color:var(--ink)}
+
+figure{margin:0 0 24px;max-width:100%}
+figure svg{display:block;max-width:100%;height:auto;color:var(--ink)}
+figcaption{font-family:var(--f-head);font-size:13px;color:var(--ink-2);margin-top:9px;padding-top:8px;border-top:1px solid var(--rule);max-width:66ch;line-height:1.45}
+
+.foot{margin-top:60px;padding-top:18px;border-top:2px solid var(--ink);font-family:var(--f-head);font-size:13px;color:var(--ink-3);max-width:68ch}
+
+@media (max-width:900px){
+  .wrap{grid-template-columns:1fr}
+  .side{position:static;max-height:none;border-right:0;border-bottom:1px solid var(--rule);padding:26px 20px}
+  .side nav ol{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr))}
+  main{padding:28px 20px 90px}
+  h1{font-size:33px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<div class="wrap">
+<aside class="side">
+  <p class="mark">Plumbline</p>
+  <p class="sub">Technical Specification</p>
+  <nav aria-label="Sections">
+    <ol>
+      <li><a href="#s0"><span class="n">00</span><span>Document control</span></a></li>
+      <li><a href="#s1"><span class="n">01</span><span>Thesis &amp; goals</span></a></li>
+      <li><a href="#s2"><span class="n">02</span><span>Product definition</span></a></li>
+      <li><a href="#s3"><span class="n">03</span><span>Domain model</span></a></li>
+      <li><a href="#s4"><span class="n">04</span><span>Architecture</span></a></li>
+      <li><a href="#s5"><span class="n">05</span><span>Perception pipeline</span></a></li>
+      <li><a href="#s6"><span class="n">06</span><span>Cue engine</span></a></li>
+      <li><a href="#s7"><span class="n">07</span><span>Abstention layer</span></a></li>
+      <li><a href="#s8"><span class="n">08</span><span>Coaching agent</span></a></li>
+      <li><a href="#s9"><span class="n">09</span><span>Data program</span></a></li>
+      <li><a href="#s10"><span class="n">10</span><span>Evaluation design</span></a></li>
+      <li><a href="#s11"><span class="n">11</span><span>Engineering</span></a></li>
+      <li><a href="#s12"><span class="n">12</span><span>Risk register</span></a></li>
+      <li><a href="#s13"><span class="n">13</span><span>Milestones</span></a></li>
+      <li><a href="#s14"><span class="n">14</span><span>Artifact map</span></a></li>
+      <li><a href="#s15"><span class="n">15</span><span>Open questions</span></a></li>
+    </ol>
+  </nav>
+</aside>
+
+<main>
+<header class="masthead">
+  <p class="eyebrow">Spec is source of truth &middot; change this before you change code</p>
+  <h1>Plumbline</h1>
+  <p class="deck">A monocular video system for hypertrophy training that reports form errors <em>only</em> where camera geometry, perception quality and calibrated model confidence all support the claim &mdash; and says plainly, with a fix, when they do not.</p>
+</header>
+
+<dl class="docctl">
+  <div><dt>Status</dt><dd>Draft v0.2</dd></div>
+  <div><dt>Date</dt><dd>2026-09-13</dd></div>
+  <div><dt>Domain</dt><dd>Machine &amp; cable</dd></div>
+  <div><dt>Exercises</dt><dd>12</dd></div>
+  <div><dt>Capture</dt><dd>Guided, async</dd></div>
+  <div><dt>Truth source</dt><dd>Rater consensus</dd></div>
+</dl>
+
+<section id="s0">
+<h2><span class="n">00</span><span>Document control</span></h2>
+
+<p class="lede">This document is the source of truth. Code that disagrees with it is a bug in one of the two &mdash; decide which, edit that one, record the decision. Every pull request cites the section it implements.</p>
+
+<h3><span class="n">0.1</span>How to use this spec</h3>
+<ul>
+  <li>Sections are cited by number: <code>&sect;7.4</code>, not &ldquo;the abstention part.&rdquo;</li>
+  <li>Decisions (<code>D-##</code>), risks (<code>R-##</code>) and open questions (<code>Q-##</code>) have stable IDs. Never renumber them; mark them superseded instead.</li>
+  <li>A decision changes only by adding a new <code>D-##</code> that supersedes the old one, with the reason. The record of <em>why you were wrong</em> is the most valuable content in this file, and it is what an interviewer will actually dig into.</li>
+  <li>Any number quoted in this document must be reproducible by <code>make eval</code> on a clean checkout (&sect;10.6). Numbers that cannot be reproduced get deleted, not footnoted.</li>
+</ul>
+
+<h3><span class="n">0.2</span>Decision log</h3>
+<div class="tw">
+<table>
+<caption>Decisions ratified at spec time</caption>
+<thead><tr><th>ID</th><th>Decision</th><th>Rationale</th><th>Rejected alternative</th></tr></thead>
+<tbody>
+<tr><td class="id">D-01</td><td>Product-led; public benchmarks used as validation, not as the core</td><td>Real users and a deployed surface are the point; benchmark reproduction is a credibility check</td><td>Benchmark-led research repo</td></tr>
+<tr><td class="id">D-02</td><td>Domain is machine, cable and supported-dumbbell hypertrophy work &mdash; not barbell powerlifting</td><td>Equipment mechanically constrains the movement, collapsing most monocular ambiguity and supplying a camera anchor (&sect;5.4)</td><td>Fitness-AQA squat / row / OHP</td></tr>
+<tr><td class="id">D-03</td><td>Guided capture, prescribed station per exercise, async upload, server-side inference</td><td>Converts an uncontrolled geometry problem into a controlled one and makes observability enforceable</td><td>Free-form upload; on-device real-time</td></tr>
+<tr><td class="id">D-04</td><td>RTMPose-m as production backbone; ViTPose-H as offline reference ceiling</td><td>RTMPose-m reports 75.8 AP on COCO at 430+ FPS on a GTX 1660 Ti, making whole-corpus re-evaluation cheap on one consumer GPU</td><td>MediaPipe only (accuracy); ViTPose only (throughput)</td></tr>
+<tr><td class="id">D-05</td><td>Ground truth is <em>experienced-lifter consensus</em>, multi-rater, and is named that way everywhere</td><td>Raters are knowledgeable but not credentialed; overclaiming would be the one dishonesty this project exists to avoid</td><td>Single-rater labels; &ldquo;expert ground truth&rdquo; framing</td></tr>
+<tr><td class="id">D-06</td><td>Coaching text is grounded, cited, machine-verified and rubric-scored</td><td>An unevaluated LLM layer is exactly the wrapper pattern that reads as low signal</td><td>Deterministic templates; free-form chat agent</td></tr>
+<tr><td class="id">D-07</td><td>One station per submission; cues needing an unavailable station abstain rather than degrade</td><td>Users have one phone. Multi-view is a research arm (&sect;5.4), not a product requirement</td><td>Mandatory two-angle capture</td></tr>
+<tr><td class="id">D-08</td><td>Rule-based detectors ship first; a learned detector replaces a rule only on a significant McNemar win over a subject-disjoint split</td><td>Rules are interpretable, need no labels to author, and produce user-facing evidence for free. They are also the honest baseline a learned model must beat</td><td>Learned-first</td></tr>
+<tr><td class="id">D-09</td><td>Validation tiers (A / B / C) are visible in the product UI</td><td>The tier is the product&rsquo;s central honesty claim, not internal metadata</td><td>Uniform UI hiding confidence</td></tr>
+<tr><td class="id">D-10</td><td>All splits subject-disjoint from ingest; a gym-disjoint split reported separately as the OOD number</td><td>Same-person leakage is the standard fatal error in this domain</td><td>Random clip-level splits</td></tr>
+<tr><td class="id">D-11</td><td>Production and the offline eval harness execute the same cue-engine code path</td><td>Prevents the research/production divergence that silently invalidates reported numbers</td><td>Separate research notebooks</td></tr>
+<tr><td class="id">D-12</td><td>Expected per-cue results are pre-registered (&sect;7.6) before data collection</td><td>Pre-registration makes a negative result a finding rather than an embarrassment</td><td>Reporting only what worked</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="tw">
+<table>
+<caption>Decisions added during implementation &mdash; v0.2, 2026-09-13</caption>
+<thead><tr><th>ID</th><th>Decision</th><th>Rationale</th><th>Rejected alternative</th></tr></thead>
+<tbody>
+<tr><td class="id">D-13</td><td>Keypoint schema is Halpe-26 (RTMPose-m, body7), not COCO-17</td><td>Still RTMPose-m per D-04, but with heels, toes, a neck point and a hip-centre point. Feet are required by LQ-03 and LG-01; neck and hip centre give a torso axis independent of which shoulder is occluded</td><td>COCO-17, which cannot see foot placement</td></tr>
+<tr><td class="id">D-14</td><td>rtmlib is installed without its declared dependencies; the ONNX Runtime provider actually used is stamped into every manifest, and a CUDA request that lands on CPU is a hard error</td><td>Observed 2026-09-13: ONNX Runtime silently fell back to CPU for want of CUDA 13 libraries. rtmlib's dependency list also installs three competing OpenCV builds. CPU and GPU results are not interchangeable</td><td>Trusting the requested device</td></tr>
+<tr><td class="id">D-15</td><td>Decoded frames are not written to disk. Ingest stores which source frame backs each output frame, and later stages re-decode deterministically. Supersedes the <code>frames/</code> stage in &sect;4.2</td><td>About 400 MB per clip for no information the index does not already carry</td><td>Materialised frame cache</td></tr>
+<tr><td class="id">D-16</td><td>Rep cycles are delimited at the <em>observed</em> start position. Which phase is concentric comes from the registry; which phase comes first is read from the signal</td><td>Leg press sets begin at lockout, and several extensions begin extended: the first phase is eccentric. &sect;5.5's output list assumed concentric-first and would have swapped their tempo</td><td>Assuming every rep starts concentric</td></tr>
+<tr><td class="id">D-17</td><td>The M1 class-agnostic cross-check is a temporal self-similarity period estimate over pose features, not the RepNet network</td><td>It shares no code with the signal segmenter, which is what makes disagreement informative. RepNet is deferred until the signal path is measured against hand annotations</td><td>Integrating RepNet at M1</td></tr>
+<tr><td class="id">D-18</td><td>Rule detectors may exist before M4 with <em>provisional</em> thresholds. They run and appear in diagnostics, but can never produce a user-visible claim</td><td>&sect;11.7 asks for detector tests on day one; &sect;6.2 forbids unvalidated thresholds in the product. Both hold if provisional is a gate, not a comment</td><td>No detectors before M4; or shipping provisional ones</td></tr>
+<tr><td class="id">D-19</td><td>Detectors return <code>Detection</code>, a type with no confidence, observability or quality fields. Only the engine constructs <code>CueResult</code>. Supersedes the &sect;6.1 signature</td><td>Turns &ldquo;a detector never sets its own confidence&rdquo; from a convention into a property of the types</td><td>Detectors returning CueResult</td></tr>
+<tr><td class="id">D-20</td><td>LP-01's decision statistic is the k-th largest per-rep amplitude, k = max(2, &lceil;0.25n&rceil;). Supersedes the median in &sect;6.2</td><td>The dominant pattern is swing that begins as the set fatigues. A median hides it, and fails the spec's own &sect;11.7 case (22&deg; on reps 7&ndash;9 of 9). The k-th largest fires on a cluster and ignores a single noisy rep</td><td>Median per-rep amplitude</td></tr>
+<tr><td class="id">D-21</td><td>Tier promotions live in <code>registry/validation.yaml</code>, must cite committed, admissible evidence, and are made by hand in a reviewed change</td><td>A tier is the product's central honesty claim (D-09); nothing should be able to promote an exercise as a side effect of running a script</td><td>Promoting automatically from eval output</td></tr>
+<tr><td class="id">D-22</td><td>Tracking stitches fragments that never co-exist, judges ambiguity only between people on screen together, and abstains with <code>subject_intermittently_detected</code> below 60% coverage</td><td>Failure F-03: detection gaps split one lifter into fragments, producing a false &ldquo;more than one person&rdquo; abstention and a confident 5-of-8 rep count</td><td>Treating every track as a separate person</td></tr>
+<tr><td class="id">D-23</td><td>Tier B metrics carry their own reliability gates: timing is withheld above a noise-to-range ratio of 0.015, and phase-labelled metrics are withheld when the start position is ambiguous</td><td>Failures F-01 and F-04: rep counts survive conditions that ruin phase timing and phase labels, so one gate for the whole set summary would either hide good counts or show bad tempo</td><td>Gating only cues, not metrics</td></tr>
+<tr><td class="id">D-24</td><td>Rep detection prominence adapts to each clip's own noise: max(0.12 &times; range, 8 &times; noise &sigma;)</td><td>Failure F-02: a fixed 30% dropped short final reps under fatigue; a fixed 12% invented reps under noise. Parameters were chosen on a stress seed family separate from the eval corpus</td><td>Any fixed prominence fraction</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3><span class="n">0.3</span>Glossary</h3>
+<div class="tw">
+<table>
+<caption>Terms of art, used precisely throughout</caption>
+<thead><tr><th>Term</th><th>Meaning in this document</th></tr></thead>
+<tbody>
+<tr><td class="id">Cue</td><td>One named, operationally defined form observation with a binary or graded outcome. The unit of everything: labeling, detection, evaluation, abstention, coaching.</td></tr>
+<tr><td class="id">Station</td><td>A prescribed camera position relative to the equipment (&sect;3.3). Not &ldquo;angle&rdquo; &mdash; a station fixes azimuth, height and distance.</td></tr>
+<tr><td class="id">Observability <em>O</em></td><td>Whether a cue is <em>geometrically resolvable</em> from the station actually used. Computed before any detector runs.</td></tr>
+<tr><td class="id">Coverage</td><td>Fraction of submissions on which the system chooses to make a claim. Complement of the abstention rate.</td></tr>
+<tr><td class="id">Selective risk</td><td>Error rate measured only over submissions the system did <em>not</em> abstain on.</td></tr>
+<tr><td class="id">Concentric / eccentric</td><td>Shortening / lengthening phase of a rep. Phase boundaries are detected, not assumed (&sect;5.5).</td></tr>
+<tr><td class="id">ROM</td><td>Range of motion in image-plane degrees at the primary joint, normalised per &sect;5.6.</td></tr>
+<tr><td class="id">TUT</td><td>Time under tension: summed duration of non-paused phases across a set.</td></tr>
+<tr><td class="id">Sagittal / frontal / transverse</td><td>Body planes. A cue&rsquo;s plane determines which stations can resolve it &mdash; the entire basis of <em>O</em>.</td></tr>
+<tr><td class="id">Body English</td><td>Momentum contributed by joints outside the target movement (torso swing, hip drive). Large-magnitude and highly measurable.</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3><span class="n">0.4</span>Errata</h3>
+<p>Statements in v0.1 that were wrong. They are corrected in place below and recorded here, because a spec that quietly fixes itself teaches nothing (&sect;0.1).</p>
+<div class="item q"><span class="tag">E-01</span><div><span class="t">The cue counts in the prose did not match the &sect;3.4 table</span><p>v0.1 said 52 cues, 32 Tier A candidates, 14 Tier B, and that five of the six expected abstentions were KIN, with every Tier A candidate being SET/TMP/ROM/CMP. The table itself has <strong>56 cues: 37 / 13 / 6</strong>; <strong>all six</strong> abstentions are KIN; and <strong>LP-04 is a KIN Tier A candidate</strong>. Found when the registry loader counted the transcribed table. The table was right; the prose was not. Now enforced by <code>tests/unit/test_registry.py</code>.</p></div></div>
+<div class="item q"><span class="tag">E-02</span><div><span class="t">81.1 AP is not ViTPose-H's number</span><p>81.1 AP on COCO test-dev was reported for the largest ViTPose configuration. &sect;5.3 attributed it to ViTPose-H. The reference-ceiling role is unchanged; the figure is removed until measured on this corpus.</p></div></div>
+<div class="item q"><span class="tag">E-03</span><div><span class="t">There is no smoothing lag to correct</span><p>&sect;5.6 said tempo cues correct for the Savitzky&ndash;Golay phase lag. A centred filter applied offline has zero group delay. Correcting for a lag that does not exist would <em>introduce</em> one. The feature set records <code>phase_lag_frames = 0</code> explicitly.</p></div></div>
+<div class="item q"><span class="tag">E-04</span><div><span class="t">&sect;6.2's example statistic contradicted &sect;11.7's example test</span><p>The median per-rep amplitude cannot fire on a 22&deg; swing confined to reps 7&ndash;9 of 9. Superseded by D-20.</p></div></div>
+</section>
+
+<section id="s1">
+<h2><span class="n">01</span><span>Thesis &amp; goals</span></h2>
+
+<h3><span class="n">1.1</span>The problem worth solving</h3>
+<p>Published work on real-world gym video establishes an uncomfortable split. On the Fitness-AQA benchmark &mdash; Instagram and YouTube clips of real gyms, annotated by two professional trainers &mdash; error-detection performance is bimodal:</p>
+
+<div class="tw">
+<table>
+<caption>Fitness-AQA reported F1, ECCV 2022 &mdash; the split this project is built around</caption>
+<thead><tr><th>Error</th><th class="m">OpenPose baseline</th><th class="m">Paper best</th><th>Character</th></tr></thead>
+<tbody>
+<tr><td>Squat &mdash; knees forward</td><td class="m">0.8123</td><td class="m">0.8468</td><td><span class="pill ok">gross</span></td></tr>
+<tr><td>Squat &mdash; shallow depth</td><td class="m">0.8340</td><td class="m">0.8694</td><td><span class="pill ok">gross</span></td></tr>
+<tr><td>OHP &mdash; knees</td><td class="m">0.7131</td><td class="m">0.8452</td><td><span class="pill ok">gross</span></td></tr>
+<tr><td>Squat &mdash; knees inward</td><td class="m">0.4143</td><td class="m">0.5263</td><td><span class="pill stop">subtle</span></td></tr>
+<tr><td>OHP &mdash; elbow</td><td class="m">0.4265</td><td class="m">0.4552</td><td><span class="pill stop">subtle</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<p>Gross, large-magnitude, in-plane errors are effectively solved. Subtle errors &mdash; particularly upper-limb rotations projecting mostly onto the camera depth axis &mdash; sit near coin-flip. The authors name the cause directly: off-the-shelf pose estimators struggle on gym video because of camera angles, occlusion from equipment, illumination and clothing.</p>
+
+<p>Independent measurement work agrees. Markerless monocular pose estimation shows mean absolute error of roughly <strong>16&ndash;29&deg; on upper-limb joint angles</strong> and 146&ndash;249&nbsp;mm of 3D joint position error. Elbow flare on a press is a 10&ndash;20&deg; difference. <strong>The signal is smaller than the instrument&rsquo;s error bar.</strong></p>
+
+<p class="lede">Every shipping product in this category &mdash; and there are many &mdash; presents both halves of that table with identical confidence. A user cannot tell which sentence is a measurement and which is a guess. That, not model accuracy, is the defect this project fixes.</p>
+
+<h3><span class="n">1.2</span>Product thesis</h3>
+<div class="note">
+<p class="h">The contract</p>
+<p><strong>Say only what the camera can support. When it cannot, say so, say why, and say exactly how to reshoot.</strong> Every user-visible claim carries a measured accuracy number from a held-out, subject-disjoint test set. Claims that cannot carry one are not shown.</p>
+</div>
+
+<h3><span class="n">1.3</span>Goals</h3>
+<div class="item"><span class="tag">G-1</span><div><span class="t">Every claim is measured</span><p>No cue reaches the UI without per-cue precision, recall and F1 with a bootstrap 95% confidence interval on a subject-disjoint test set.</p></div></div>
+<div class="item"><span class="tag">G-2</span><div><span class="t">The system abstains rather than guesses</span><p>Three independent gates &mdash; geometric observability, perception quality, calibrated model confidence &mdash; each able to veto a claim (&sect;7.1).</p></div></div>
+<div class="item"><span class="tag">G-3</span><div><span class="t">Coaching is grounded and verifiable</span><p>Every generated sentence traces to a fired cue and a citation in a versioned evidence corpus, machine-checked before display (&sect;8.2).</p></div></div>
+<div class="item"><span class="tag">G-4</span><div><span class="t">It is a real product with real users</span><p>Deployed, guided capture, used by members of the training org &mdash; not a notebook with a demo GIF.</p></div></div>
+<div class="item"><span class="tag">G-5</span><div><span class="t">The whole thing is reproducible</span><p>One command regenerates every number in this document and in the repository README.</p></div></div>
+
+<h3><span class="n">1.4</span>Non-goals</h3>
+<p>Stated explicitly so scope creep has to argue with a document rather than with a mood.</p>
+<ul>
+  <li><strong>Not medical or physical-therapy advice.</strong> No injury diagnosis, no pain triage, no rehab programming. Hard boundary, enforced in the coaching layer (&sect;8.5).</li>
+  <li><strong>Not real-time on-device analysis.</strong> Live in-set feedback forces mobile deployment, latency budgets and quantisation. Deferred; the capture overlay is the only live component (&sect;5.3).</li>
+  <li><strong>Not free-weight barbell powerlifting.</strong> Different domain, no equipment anchor, already covered by published work.</li>
+  <li><strong>Not program design, periodisation or nutrition.</strong></li>
+  <li><strong>Not 3D metric joint angles.</strong> All angles are image-plane angles unless a multi-view validation study says otherwise (&sect;5.6). Reporting a 3D angle from one camera without that study would be the exact overclaim this project criticises.</li>
+  <li><strong>Rep counting is not a feature.</strong> It is table stakes and infrastructure for everything else.</li>
+</ul>
+
+<h3><span class="n">1.5</span>Success criteria</h3>
+<div class="tw">
+<table>
+<caption>Definition of done &mdash; each is a number, not an adjective</caption>
+<thead><tr><th>ID</th><th>Criterion</th><th class="m">Target</th></tr></thead>
+<tbody>
+<tr><td class="id">SC-1</td><td>Exercises with at least one Tier A validated cue</td><td class="m">&ge; 3</td></tr>
+<tr><td class="id">SC-2</td><td>Precision on retained predictions, per shipped cue</td><td class="m">&ge; 0.85</td></tr>
+<tr><td class="id">SC-3</td><td>Coverage at that precision, per shipped cue</td><td class="m">&ge; 0.60</td></tr>
+<tr><td class="id">SC-4</td><td>Informed abstention beats random abstention at matched coverage</td><td class="m">p &lt; 0.05</td></tr>
+<tr><td class="id">SC-5</td><td>Inter-rater agreement (Krippendorff &alpha;) for any shipped cue</td><td class="m">&ge; 0.67</td></tr>
+<tr><td class="id">SC-6</td><td>Coaching claims traceable to a fired cue</td><td class="m">&ge; 0.95</td></tr>
+<tr><td class="id">SC-7</td><td>Coaching claims made about an abstained cue</td><td class="m">0</td></tr>
+<tr><td class="id">SC-8</td><td>Distinct users / real submitted sets</td><td class="m">&ge; 50 / &ge; 500</td></tr>
+<tr><td class="id">SC-9</td><td>Class-agnostic metrics available across the registry</td><td class="m">12 / 12</td></tr>
+<tr><td class="id">SC-10</td><td>Every published number reproducible from a clean checkout</td><td class="m">100%</td></tr>
+</tbody>
+</table>
+</div>
+<p>Note what SC-2 and SC-3 do <em>not</em> say. They do not require high accuracy on every cue. A cue reaching precision 0.85 only at coverage 0.15 is a <strong>successful outcome</strong>: the system correctly determined it can rarely see that error and declined the other 85% of the time. Failure is claiming coverage you did not earn.</p>
+</section>
+
+<section id="s2">
+<h2><span class="n">02</span><span>Product definition</span></h2>
+
+<h3><span class="n">2.1</span>Users</h3>
+<div class="tw">
+<table>
+<caption>Who this is for, and what they are actually trying to do</caption>
+<thead><tr><th>User</th><th>Situation</th><th>Job to be done</th></tr></thead>
+<tbody>
+<tr><td><strong>Self-coached lifter</strong><br><span style="color:var(--ink-3)">primary</span></td><td>1&ndash;5 years training, hypertrophy focus, already films sets on a phone propped against a dumbbell rack</td><td>&ldquo;Something felt off on that set. Tell me whether it was real &mdash; and don&rsquo;t invent something if you can&rsquo;t tell.&rdquo;</td></tr>
+<tr><td><strong>Org member</strong><br><span style="color:var(--ink-3)">seed cohort</span></td><td>Bodybuilding org, trains at a known set of campus and commercial gyms, socially reachable</td><td>Same as above, plus willingness to contribute labeled clips in exchange for feedback</td></tr>
+<tr><td><strong>Coach</strong><br><span style="color:var(--ink-3)">secondary</span></td><td>Reviewing clips clients send between sessions</td><td>Triage a queue: which clips actually need my attention, and what changed since last week</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>The primary user is defined by a specific emotional state that shapes the entire product: <strong>they already suspect something</strong>. They are not asking to be scanned; they are asking to be confirmed or corrected. That is why a confident wrong answer is so much worse here than an abstention &mdash; it does not merely fail to help, it actively overwrites a correct instinct.</p>
+
+<h3><span class="n">2.2</span>Core loop</h3>
+<pre>select exercise  &rarr;  guided capture  &rarr;  upload  &rarr;  analysis (async, ~20-60s)
+      &uarr;                                                         &darr;
+      &laquo;-------- reshoot instruction --------  report  &rarr;  follow-up Q&amp;A
+                                                              &darr;
+                                                        set history</pre>
+
+<p>Two properties of this loop matter more than the steps in it:</p>
+<ul>
+  <li><strong>The reshoot path is a first-class outcome, not an error state.</strong> When a cue abstains for geometric reasons, the product returns a station correction the user can act on in the next 30 seconds, while they are still at the machine. An abstention with no remedy is just a failure with better manners.</li>
+  <li><strong>Analysis is asynchronous and the user is told so.</strong> No fake progress bars, no pretending to be real-time. Honest latency is consistent with the rest of the product&rsquo;s posture.</li>
+</ul>
+
+<h3><span class="n">2.3</span>Validation tiers</h3>
+<p>The single most important UI decision in the product (<code>D-09</code>). Every claim carries its tier, visibly.</p>
+
+<div class="tw">
+<table>
+<caption>Product-visible validation tiers</caption>
+<thead><tr><th>Tier</th><th>Meaning</th><th>What the user sees</th><th>Requirement to enter</th></tr></thead>
+<tbody>
+<tr><td><span class="pill ok">A &mdash; Validated</span></td><td>This exercise/cue pair has a measured accuracy on a held-out subject-disjoint test set</td><td>Full critique, severity, per-rep evidence frames, and the measured precision printed next to it</td><td>Labeled data, &alpha; &ge; 0.67, calibrated, meets SC-2 and SC-3</td></tr>
+<tr><td><span class="pill warn">B &mdash; Measured</span></td><td>Class-agnostic metrics only. No error claims of any kind</td><td>Reps, ROM consistency, tempo, TUT, asymmetry, fatigue slope &mdash; plus an explicit line saying form assessment is not validated here yet</td><td>Rep segmentation passes &sect;10 L2 gates for this exercise</td></tr>
+<tr><td><span class="pill na">C &mdash; Unsupported</span></td><td>Exercise not in the registry or not recognised</td><td>&ldquo;Not supported yet.&rdquo; Clip stored only with consent, as candidate training data</td><td>&mdash;</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="note ok">
+<p class="h">Why the tier is the product</p>
+<p>Tier B is not a degraded experience &mdash; it is the honest one, and it is still genuinely useful. Rep count, ROM consistency across a set, tempo, and rep-to-rep degradation are exactly the metrics a hypertrophy-focused lifter cares about, and almost no consumer product reports them rigorously. Shipping twelve exercises at Tier B with three at Tier A is a stronger, more defensible product than twelve exercises pretending to be Tier A.</p>
+</div>
+
+<h3><span class="n">2.4</span>Guided capture</h3>
+<p>Per <code>D-03</code>, the app prescribes where the phone goes before the set, per exercise. Concretely:</p>
+<ul>
+  <li>An on-screen silhouette and floor-position hint for the required station (&sect;3.3), rendered live in-browser using a lightweight on-device pose model so there is no server round trip while the user is standing at the machine.</li>
+  <li>A pre-roll check that must pass before recording arms: subject fully in frame, station classifier agrees with the requested station, adequate illumination, no more than one person in the working area.</li>
+  <li>Capture bounds: minimum 3 reps, maximum 30, hard cap of 90 seconds.</li>
+  <li><strong>Compliance is measured, not assumed.</strong> The fraction of real submissions that actually match the prescribed station is a tracked product metric (&sect;10.1, L0). If compliance is 45%, every downstream accuracy number is quietly conditioned on that, and the spec would rather know.</li>
+</ul>
+
+<h3><span class="n">2.5</span>The report</h3>
+<p>One screen, ordered by what the user should act on:</p>
+<ol>
+  <li><strong>Set summary</strong> &mdash; reps, TUT, tempo per phase, ROM consistency, fatigue slope. Always present, all tiers.</li>
+  <li><strong>Fired cues</strong> &mdash; ranked by severity &times; confidence. Each carries the evidence frame, the measured value against the threshold, and the tier badge.</li>
+  <li><strong>Abstained cues</strong> &mdash; listed, not hidden, each with its reason and its remedy. This section is deliberately visible; concealing it would reintroduce exactly the ambiguity the product exists to remove.</li>
+  <li><strong>Coaching</strong> &mdash; grounded prose with citations (&sect;8), generated only from sections 1 and 2 above.</li>
+  <li><strong>Trend</strong> &mdash; this cue over the last N sets of this exercise.</li>
+</ol>
+</section>
+
+<section id="s3">
+<h2><span class="n">03</span><span>Domain model</span></h2>
+
+<h3><span class="n">3.1</span>Exercise registry</h3>
+<p>Twelve exercises, all mechanically constrained by equipment. Each registry entry is data, not code, so adding an exercise is a config change plus labels.</p>
+
+<pre><span style="color:var(--ink-3)"># registry/lat_pulldown.yaml</span>
+id: lat_pulldown
+aliases: [lat pull down, pulldown, cable pulldown]
+equipment_class: selectorised_stack
+dominant_plane: sagittal
+primary_joints: [elbow, shoulder, spine_thoracic]
+rep_signal: elbow_angle_mean          <span style="color:var(--ink-3)"># drives segmentation (&sect;5.5)</span>
+rep_phase: {concentric: decreasing, eccentric: increasing}
+stations:
+  required: S-LAT
+  optional:  [S-FRONT]                <span style="color:var(--ink-3)"># unlocks LP-06, LP-07</span>
+anchors: [seat_pad, thigh_pad, stack_top, cable_origin]
+rom_reference:
+  joint: elbow
+  full_extension_deg: 168             <span style="color:var(--ink-3)"># population reference, not per-user</span>
+  normalisation: torso_length
+cues: [LP-01, LP-02, LP-03, LP-04, LP-05, LP-06, LP-07]</pre>
+
+<h3><span class="n">3.2</span>Cue taxonomy</h3>
+<p>Six cue types. The type predicts the difficulty, and therefore predicts the tier &mdash; which is why the taxonomy exists rather than a flat list.</p>
+
+<div class="tw">
+<table>
+<caption>Cue types ordered by expected tractability under monocular capture</caption>
+<thead><tr><th>Type</th><th>What it measures</th><th>Signal magnitude</th><th>Difficulty</th></tr></thead>
+<tbody>
+<tr><td class="id">SET</td><td>Static equipment setup before the first rep &mdash; pad height, seat position, grip width, torso contact</td><td>Large, spatial</td><td><span class="pill ok">low</span> &mdash; a single-frame problem, no temporal modelling, no motion blur</td></tr>
+<tr><td class="id">TMP</td><td>Tempo per phase, TUT, pauses, rep-to-rep degradation</td><td>Large, temporal</td><td><span class="pill ok">low</span> &mdash; depends only on correct phase boundaries, not on absolute joint accuracy</td></tr>
+<tr><td class="id">ROM</td><td>Per-rep range at the primary joint; consistency across the set</td><td>Large, in-plane</td><td><span class="pill ok">low</span> &mdash; relative comparison within one clip cancels most systematic pose bias</td></tr>
+<tr><td class="id">CMP</td><td>Compensation / body English &mdash; momentum from joints outside the target movement</td><td>Large, in-plane</td><td><span class="pill ok">low-med</span> &mdash; torso swing amplitude is one of the largest signals available</td></tr>
+<tr><td class="id">SYM</td><td>Left/right asymmetry in ROM or phase timing</td><td>Medium, frontal</td><td><span class="pill warn">medium</span> &mdash; needs a frontal station and a clean two-sided track</td></tr>
+<tr><td class="id">KIN</td><td>Absolute joint angles or limb orientation at a point in the rep</td><td>Small, often out-of-plane</td><td><span class="pill stop">high</span> &mdash; this is where published F1 collapses to ~0.46</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="note">
+<p class="h">The unobvious consequence</p>
+<p>SET cues are single-frame problems and are the easiest category on this list, yet no competitor ships them. &ldquo;Your preacher pad is set two notches too low, so your armpit is not seated and you are losing tension at the bottom&rdquo; is high-value coaching, is trivially measurable from a still frame, and is a genuine product wedge. <strong>Build SET cues first</strong> &mdash; they deliver user value on the shallowest part of the technical curve, and they generate goodwill that funds the harder data collection.</p>
+</div>
+
+<h3><span class="n">3.3</span>Camera stations</h3>
+<p>A cue&rsquo;s plane determines which stations can resolve it. This is pure projective geometry and it is decidable before any model runs &mdash; which is the entire basis of the observability gate in &sect;7.1.</p>
+
+<figure>
+<svg viewBox="0 0 720 330" role="img" aria-label="Overhead diagram of five camera stations around a machine, showing which body planes each station can resolve and which it cannot">
+  <defs>
+    <marker id="ar" markerWidth="9" markerHeight="9" refX="7.5" refY="3.2" orient="auto"><polygon points="0 0, 8 3.2, 0 6.4" fill="currentColor"/></marker>
+    <marker id="arA" markerWidth="9" markerHeight="9" refX="7.5" refY="3.2" orient="auto"><polygon points="0 0, 8 3.2, 0 6.4" fill="#8C3A2B"/></marker>
+  </defs>
+
+  <text x="0" y="12" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="currentColor" opacity=".55" letter-spacing="1">OVERHEAD VIEW &mdash; SUBJECT SEATED, FACING RIGHT</text>
+
+  <rect x="292" y="150" width="46" height="52" fill="none" stroke="currentColor" stroke-width="1.4"/>
+  <text x="315" y="181" font-family="IBM Plex Sans Condensed, sans-serif" font-size="11" fill="currentColor" text-anchor="middle">seat</text>
+  <circle cx="358" cy="176" r="15" fill="none" stroke="currentColor" stroke-width="1.6"/>
+  <text x="358" y="180" font-family="IBM Plex Sans Condensed, sans-serif" font-size="10" fill="currentColor" text-anchor="middle">subj</text>
+  <line x1="358" y1="176" x2="410" y2="176" stroke="currentColor" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="415" y="180" font-family="IBM Plex Mono, monospace" font-size="9.5" fill="currentColor" opacity=".6">facing</text>
+
+  <g stroke="currentColor" fill="currentColor">
+    <rect x="330" y="52" width="56" height="24" fill="none" stroke-width="1.3"/>
+    <text x="358" y="68" font-family="IBM Plex Mono, monospace" font-size="10.5" text-anchor="middle">S-LAT</text>
+    <line x1="358" y1="78" x2="358" y2="156" stroke-width="1.3" marker-end="url(#ar)"/>
+    <text x="366" y="118" font-family="IBM Plex Sans Condensed, sans-serif" font-size="10.5">resolves sagittal</text>
+
+    <rect x="530" y="152" width="66" height="24" fill="none" stroke-width="1.3"/>
+    <text x="563" y="168" font-family="IBM Plex Mono, monospace" font-size="10.5" text-anchor="middle">S-FRONT</text>
+    <line x1="528" y1="169" x2="378" y2="174" stroke-width="1.3" marker-end="url(#ar)"/>
+    <text x="410" y="160" font-family="IBM Plex Sans Condensed, sans-serif" font-size="10.5">resolves frontal</text>
+
+    <rect x="500" y="66" width="70" height="24" fill="none" stroke-width="1.3"/>
+    <text x="535" y="82" font-family="IBM Plex Mono, monospace" font-size="10.5" text-anchor="middle">S-OBL45</text>
+    <line x1="504" y1="90" x2="374" y2="162" stroke-width="1.3" marker-end="url(#ar)"/>
+    <text x="404" y="120" font-family="IBM Plex Sans Condensed, sans-serif" font-size="10.5">partial transverse</text>
+
+    <rect x="132" y="152" width="60" height="24" fill="none" stroke-width="1.3"/>
+    <text x="162" y="168" font-family="IBM Plex Mono, monospace" font-size="10.5" text-anchor="middle">S-REAR</text>
+    <line x1="194" y1="167" x2="286" y2="173" stroke-width="1.3" marker-end="url(#ar)"/>
+    <text x="200" y="158" font-family="IBM Plex Sans Condensed, sans-serif" font-size="10.5">scapular</text>
+
+    <rect x="330" y="264" width="56" height="24" fill="none" stroke-width="1.3"/>
+    <text x="358" y="280" font-family="IBM Plex Mono, monospace" font-size="10.5" text-anchor="middle">S-HIGH</text>
+    <line x1="358" y1="262" x2="358" y2="200" stroke-width="1.3" marker-end="url(#ar)"/>
+    <text x="366" y="234" font-family="IBM Plex Sans Condensed, sans-serif" font-size="10.5">transverse (elevated 30&deg;)</text>
+  </g>
+
+  <g stroke="#8C3A2B" fill="#8C3A2B">
+    <line x1="352" y1="140" x2="352" y2="96" stroke-width="1.6" stroke-dasharray="4 3" marker-end="url(#arA)"/>
+    <text x="180" y="106" font-family="IBM Plex Sans Condensed, sans-serif" font-size="11" font-weight="600">humeral abduction projects onto depth axis from S-LAT &rarr;</text>
+    <text x="180" y="122" font-family="IBM Plex Sans Condensed, sans-serif" font-size="11">unresolvable: O = 0</text>
+  </g>
+</svg>
+<figcaption>The station a user shoots from decides, before any model runs, which cues are even in principle measurable. Elbow flare is humeral abduction in the transverse plane; from the lateral station most lifters instinctively use, that motion lies along the camera depth axis and carries almost no image-plane signal. This is why <code>IP-02</code> is expected to fail (&sect;7.6) and why the fix is a station change, not a better model.</figcaption>
+</figure>
+
+<div class="tw">
+<table>
+<caption>Station definitions &mdash; azimuth measured from the subject facing direction</caption>
+<thead><tr><th>ID</th><th class="m">Azimuth</th><th class="m">Lens height</th><th class="m">Distance</th><th>Resolves</th></tr></thead>
+<tbody>
+<tr><td class="id">S-LAT</td><td class="m">90&deg;</td><td class="m">mid-torso</td><td class="m">2.5&ndash;3.5 m</td><td>Sagittal: flexion/extension, ROM, torso angle, bar path</td></tr>
+<tr><td class="id">S-FRONT</td><td class="m">0&deg;</td><td class="m">mid-torso</td><td class="m">2.0&ndash;3.0 m</td><td>Frontal: L/R symmetry, grip width, knee tracking</td></tr>
+<tr><td class="id">S-OBL45</td><td class="m">45&deg;</td><td class="m">mid-torso</td><td class="m">2.5&ndash;3.5 m</td><td>Partial transverse: humeral abduction with reduced but non-zero signal</td></tr>
+<tr><td class="id">S-REAR</td><td class="m">180&deg;</td><td class="m">mid-torso</td><td class="m">2.0&ndash;3.0 m</td><td>Scapular motion, rear-delt work, lat spread</td></tr>
+<tr><td class="id">S-HIGH</td><td class="m">90&deg;, +30&deg; elev</td><td class="m">above head</td><td class="m">2.0&ndash;3.0 m</td><td>Transverse plane; the only station that genuinely resolves flare, and rarely practical</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3><span class="n">3.4</span>Cue registry</h3>
+<p>The full initial cue set across all twelve exercises. <em>Expected tier</em> is a pre-registered prediction (<code>D-12</code>), recorded before data collection so that being wrong is informative.</p>
+
+<div class="tw">
+<table>
+<caption>Cue registry &mdash; 12 exercises, 56 cues</caption>
+<thead><tr><th>ID</th><th>Cue</th><th class="m">Type</th><th class="m">Station</th><th>Expected tier</th></tr></thead>
+<tbody>
+<tr><td class="id">PC-01</td><td>Preacher curl &mdash; incomplete extension at bottom</td><td class="m">ROM</td><td class="m">S-LAT</td><td><span class="pill ok">A</span></td></tr>
+<tr><td class="id">PC-02</td><td>Preacher curl &mdash; torso/shoulder rise off pad (cheat)</td><td class="m">CMP</td><td class="m">S-LAT</td><td><span class="pill ok">A</span></td></tr>
+<tr><td class="id">PC-03</td><td>Preacher curl &mdash; pad too low, armpit unseated</td><td class="m">SET</td><td class="m">S-LAT</td><td><span class="pill ok">A</span></td></tr>
+<tr><td class="id">PC-04</td><td>Preacher curl &mdash; eccentric drop / tempo collapse</td><td class="m">TMP</td><td class="m">any</td><td><span class="pill ok">A</span></td></tr>
+<tr><td class="id">PC-05</td><td>Preacher curl &mdash; L/R ROM asymmetry (unilateral only)</td><td class="m">SYM</td><td class="m">S-FRONT</td><td><span class="pill warn">B</span></td></tr>
+<tr><td class="id">PC-06</td><td>Preacher curl &mdash; wrist flexion drift</td><td class="m">KIN</td><td class="m">S-LAT</td><td><span class="pill stop">abstain</span></td></tr>
+<tr><td class="id">IP-01</td><td>Incline press &mdash; ROM depth at bottom</td><td class="m">ROM</td><td class="m">S-OBL45</td><td><span class="pill warn">B</span></td></tr>
+<tr><td class="id">IP-02</td><td>Incline press &mdash; elbow flare / humeral abduction</td><td class="m">KIN</td><td class="m">S-HIGH</td><td><span class="pill stop">abstain</span></td></tr>
+<tr><td class="id">IP-03</td><td>Incline press &mdash; L/R lockout timing asymmetry</td><td class="m">SYM</td><td class="m">S-FRONT</td><td><span class="pill warn">B</span></td></tr>
+<tr><td class="id">IP-04</td><td>Incline press &mdash; handle path deviation</td><td class="m">KIN</td><td class="m">S-LAT</td><td><span class="pill warn">B</span></td></tr>
+<tr><td class="id">IP-05</td><td>Incline press &mdash; scapular retraction loss</td><td class="m">KIN</td><td class="m">S-REAR</td><td><span class="pill stop">abstain</span></td></tr>
+<tr><td class="id">IP-06</td><td>Incline press &mdash; backrest angle setting</td><td class="m">SET</td><td class="m">S-LAT</td><td><span class="pill ok">A</span></td></tr>
+<tr><td class="id">IP-07</td><td>Incline press &mdash; lockout bounce / tempo</td><td class="m">TMP</td><td class="m">any</td><td><span class="pill ok">A</span></td></tr>
+<tr><td class="id">PF-01</td><td>Pec fly &mdash; elbow angle drift (turning fly into press)</td><td class="m">KIN</td><td class="m">S-HIGH</td><td><span class="pill stop">abstain</span></td></tr>
+<tr><td class="id">PF-02</td><td>Pec fly &mdash; incomplete stretch at end range</td><td class="m">ROM</td><td class="m">S-FRONT</td><td><span class="pill warn">B</span></td></tr>
+<tr><td class="id">PF-03</td><td>Pec fly &mdash; seat height vs handle path</td><td class="m">SET</td><td class="m">S-LAT</td><td><span class="pill ok">A</span></td></tr>
+<tr><td class="id">PF-04</td><td>Pec fly &mdash; torso rise off pad</td><td class="m">CMP</td><td class="m">S-LAT</td><td><span class="pill ok">A</span></td></tr>
+<tr><td class="id">CR-01</td><td>Chest-supported row &mdash; chest leaving pad</td><td class="m">CMP</td><td class="m">S-LAT</td><td><span class="pill ok">A</span></td></tr>
+<tr><td class="id">CR-02</td><td>Chest-supported row &mdash; incomplete stretch at front</td><td class="m">ROM</td><td class="m">S-LAT</td><td><span class="pill ok">A</span></td></tr>
+<tr><td class="id">CR-03</td><td>Chest-supported row &mdash; short pull at back</td><td class="m">ROM</td><td class="m">S-LAT</td><td><span class="pill ok">A</span></td></tr>
+<tr><td class="id">CR-04</td><td>Chest-supported row &mdash; L/R pull asymmetry</td><td class="m">SYM</td><td class="m">S-REAR</td><td><span class="pill warn">B</span></td></tr>
+<tr><td class="id">CR-05</td><td>Chest-supported row &mdash; pad height setting</td><td class="m">SET</td><td class="m">S-LAT</td><td><span class="pill ok">A</span></td></tr>
+<tr><td class="id">LP-01</td><td>Lat pulldown &mdash; torso swing / momentum</td><td class="m">CMP</td><td class="m">S-LAT</td><td><span class="pill ok">A</span></td></tr>
+<tr><td class="id">LP-02</td><td>Lat pulldown &mdash; incomplete top ROM</td><td class="m">ROM</td><td class="m">S-LAT</td><td><span class="pill ok">A</span></td></tr>
+<tr><td class="id">LP-03</td><td>Lat pulldown &mdash; short bottom ROM</td><td class="m">ROM</td><td class="m">S-LAT</td><td><span class="pill ok">A</span></td></tr>
+<tr><td class="id">LP-04</td><td>Lat pulldown &mdash; excessive mean layback</td><td class="m">KIN</td><td class="m">S-LAT</td><td><span class="pill ok">A</span></td></tr>
+<tr><td class="id">LP-05</td><td>Lat pulldown &mdash; hip rise / thigh pad too loose</td><td class="m">SET</td><td class="m">S-LAT</td><td><span class="pill ok">A</span></td></tr>
+<tr><td class="id">LP-06</td><td>Lat pulldown &mdash; grip width vs shoulder width</td><td class="m">SET</td><td class="m">S-FRONT</td><td><span class="pill warn">B</span></td></tr>
+<tr><td class="id">LP-07</td><td>Lat pulldown &mdash; elbow path out of scapular plane</td><td class="m">KIN</td><td class="m">S-FRONT</td><td><span class="pill stop">abstain</span></td></tr>
+<tr><td class="id">UR-01</td><td>Upper-back row &mdash; elbow path too low (becomes lat row)</td><td class="m">KIN</td><td class="m">S-LAT</td><td><span class="pill warn">B</span></td></tr>
+<tr><td class="id">UR-02</td><td>Upper-back row &mdash; torso swing</td><td class="m">CMP</td><td class="m">S-LAT</td><td><span class="pill ok">A</span></td></tr>
+<tr><td class="id">UR-03</td><td>Upper-back row &mdash; incomplete retraction</td><td class="m">ROM</td><td class="m">S-REAR</td><td><span class="pill warn">B</span></td></tr>
+<tr><td class="id">UR-04</td><td>Upper-back row &mdash; tempo collapse under fatigue</td><td class="m">TMP</td><td class="m">any</td><td><span class="pill ok">A</span></td></tr>
+<tr><td class="id">LE-01</td><td>Leg extension &mdash; incomplete lockout</td><td class="m">ROM</td><td class="m">S-LAT</td><td><span class="pill ok">A</span></td></tr>
+<tr><td class="id">LE-02</td><td>Leg extension &mdash; hip lift off seat</td><td class="m">CMP</td><td class="m">S-LAT</td><td><span class="pill ok">A</span></td></tr>
+<tr><td class="id">LE-03</td><td>Leg extension &mdash; backrest / pivot misalignment</td><td class="m">SET</td><td class="m">S-LAT</td><td><span class="pill ok">A</span></td></tr>
+<tr><td class="id">LE-04</td><td>Leg extension &mdash; L/R ROM asymmetry</td><td class="m">SYM</td><td class="m">S-FRONT</td><td><span class="pill warn">B</span></td></tr>
+<tr><td class="id">LE-05</td><td>Leg extension &mdash; eccentric drop</td><td class="m">TMP</td><td class="m">any</td><td><span class="pill ok">A</span></td></tr>
+<tr><td class="id">LC-01</td><td>Leg curl &mdash; hip rise / glute contribution</td><td class="m">CMP</td><td class="m">S-LAT</td><td><span class="pill ok">A</span></td></tr>
+<tr><td class="id">LC-02</td><td>Leg curl &mdash; incomplete flexion</td><td class="m">ROM</td><td class="m">S-LAT</td><td><span class="pill ok">A</span></td></tr>
+<tr><td class="id">LC-03</td><td>Leg curl &mdash; pad position on achilles</td><td class="m">SET</td><td class="m">S-LAT</td><td><span class="pill warn">B</span></td></tr>
+<tr><td class="id">LC-04</td><td>Leg curl &mdash; eccentric drop</td><td class="m">TMP</td><td class="m">any</td><td><span class="pill ok">A</span></td></tr>
+<tr><td class="id">LQ-01</td><td>Leg press, quad bias &mdash; ROM depth</td><td class="m">ROM</td><td class="m">S-LAT</td><td><span class="pill ok">A</span></td></tr>
+<tr><td class="id">LQ-02</td><td>Leg press, quad bias &mdash; lumbar rounding at depth</td><td class="m">KIN</td><td class="m">S-LAT</td><td><span class="pill warn">B</span></td></tr>
+<tr><td class="id">LQ-03</td><td>Leg press, quad bias &mdash; foot placement height on platform</td><td class="m">SET</td><td class="m">S-LAT</td><td><span class="pill ok">A</span></td></tr>
+<tr><td class="id">LQ-04</td><td>Leg press, quad bias &mdash; knee lockout slam</td><td class="m">TMP</td><td class="m">S-LAT</td><td><span class="pill ok">A</span></td></tr>
+<tr><td class="id">LG-01</td><td>Leg press, glute bias &mdash; foot placement vs stated bias</td><td class="m">SET</td><td class="m">S-LAT</td><td><span class="pill ok">A</span></td></tr>
+<tr><td class="id">LG-02</td><td>Leg press, glute bias &mdash; insufficient hip flexion depth</td><td class="m">ROM</td><td class="m">S-LAT</td><td><span class="pill ok">A</span></td></tr>
+<tr><td class="id">LG-03</td><td>Leg press, glute bias &mdash; knee valgus under load</td><td class="m">KIN</td><td class="m">S-FRONT</td><td><span class="pill stop">abstain</span></td></tr>
+<tr><td class="id">TE-01</td><td>Overhead tricep ext &mdash; elbow drift forward</td><td class="m">KIN</td><td class="m">S-LAT</td><td><span class="pill warn">B</span></td></tr>
+<tr><td class="id">TE-02</td><td>Overhead tricep ext &mdash; incomplete stretch at bottom</td><td class="m">ROM</td><td class="m">S-LAT</td><td><span class="pill ok">A</span></td></tr>
+<tr><td class="id">TE-03</td><td>Overhead tricep ext &mdash; lumbar extension compensation</td><td class="m">CMP</td><td class="m">S-LAT</td><td><span class="pill ok">A</span></td></tr>
+<tr><td class="id">TP-01</td><td>Tricep pushdown &mdash; elbow travel from ribs</td><td class="m">CMP</td><td class="m">S-LAT</td><td><span class="pill ok">A</span></td></tr>
+<tr><td class="id">TP-02</td><td>Tricep pushdown &mdash; torso lean / bodyweight assist</td><td class="m">CMP</td><td class="m">S-LAT</td><td><span class="pill ok">A</span></td></tr>
+<tr><td class="id">TP-03</td><td>Tricep pushdown &mdash; incomplete lockout</td><td class="m">ROM</td><td class="m">S-LAT</td><td><span class="pill ok">A</span></td></tr>
+<tr><td class="id">TP-04</td><td>Tricep pushdown &mdash; cable origin height setting</td><td class="m">SET</td><td class="m">S-LAT</td><td><span class="pill ok">A</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<p><strong>Read the distribution, because it is the plan.</strong> Thirty-seven cues are pre-registered as Tier A candidates, and thirty-six of them are SET, TMP, ROM or CMP &mdash; the four in-plane, large-magnitude types. The exception, LP-04 (mean layback), is kinematic but large and sagittal. Thirteen are Tier B. Six are pre-registered as expected abstentions, and all six are KIN (corrected, E-01). That is not an accident of authorship; it falls directly out of &sect;3.2 and &sect;3.3, and it is the falsifiable prediction the evaluation is designed to test.</p>
+
+<h3><span class="n">3.5</span>Rubric authoring rules</h3>
+<p>A cue does not exist until its rubric does. Every rubric must contain:</p>
+<ol>
+  <li><strong>An operational definition</strong> phrased in terms a rater can observe, never interpret. &ldquo;Torso angle deviates more than 15&deg; from its value at rep start&rdquo; is operational; &ldquo;using momentum&rdquo; is not.</li>
+  <li><strong>A threshold with units</strong>, plus the reasoning or source for that threshold.</li>
+  <li><strong>An explicit borderline band.</strong> Raters mark borderline rather than being forced into a binary. Forcing binary decisions on genuinely ambiguous clips is the fastest way to destroy your agreement statistics and, with them, your labels.</li>
+  <li><strong>Two reference clips</strong>, one clear positive and one clear negative, shown inline in the labeling tool.</li>
+  <li><strong>A stated failure mode</strong> &mdash; the situation in which this rubric is known to be unreliable.</li>
+</ol>
+<div class="note stop">
+<p class="h">Gate</p>
+<p>If two trained raters cannot reach &alpha; &ge; 0.67 on a 30-clip dry run of a rubric, <strong>the cue does not ship</strong>. Rewrite the rubric once; if it fails again, the cue is retired and that retirement is reported as a result (&sect;10). A cue humans cannot agree on is not a cue a model can be trained to detect &mdash; it is a disagreement about training philosophy wearing a measurement costume.</p>
+</div>
+</section>
+
+<section id="s4">
+<h2><span class="n">04</span><span>Architecture</span></h2>
+
+<h3><span class="n">4.1</span>Shape of the system</h3>
+<p>The architecture has one non-negotiable property, and every other choice bends around it: <strong>production and offline evaluation execute the same cue-engine code</strong> (<code>D-11</code>). There is no research notebook that diverges from what users get. The eval harness is a different driver over an identical core.</p>
+
+<figure>
+<svg viewBox="0 0 760 400" role="img" aria-label="Architecture diagram showing browser capture and the offline evaluation harness feeding the same shared analysis core, which produces cue decisions consumed by the abstention gate and coaching service">
+  <defs>
+    <marker id="a2" markerWidth="9" markerHeight="9" refX="7.5" refY="3.2" orient="auto"><polygon points="0 0, 8 3.2, 0 6.4" fill="currentColor"/></marker>
+    <marker id="a2g" markerWidth="9" markerHeight="9" refX="7.5" refY="3.2" orient="auto"><polygon points="0 0, 8 3.2, 0 6.4" fill="#2E6B4F"/></marker>
+  </defs>
+
+  <rect x="14" y="30" width="150" height="60" fill="none" stroke="currentColor" stroke-width="1.4"/>
+  <text x="89" y="52" font-family="IBM Plex Sans Condensed, sans-serif" font-size="12.5" font-weight="600" fill="currentColor" text-anchor="middle">Browser client</text>
+  <text x="89" y="68" font-family="IBM Plex Sans Condensed, sans-serif" font-size="10.5" fill="currentColor" text-anchor="middle" opacity=".7">guided capture</text>
+  <text x="89" y="81" font-family="IBM Plex Sans Condensed, sans-serif" font-size="10.5" fill="currentColor" text-anchor="middle" opacity=".7">on-device overlay</text>
+
+  <rect x="14" y="300" width="150" height="60" fill="none" stroke="#2E6B4F" stroke-width="1.6"/>
+  <text x="89" y="322" font-family="IBM Plex Sans Condensed, sans-serif" font-size="12.5" font-weight="600" fill="#2E6B4F" text-anchor="middle">Eval harness</text>
+  <text x="89" y="338" font-family="IBM Plex Sans Condensed, sans-serif" font-size="10.5" fill="#2E6B4F" text-anchor="middle">labeled corpus</text>
+  <text x="89" y="351" font-family="IBM Plex Sans Condensed, sans-serif" font-size="10.5" fill="#2E6B4F" text-anchor="middle">make eval</text>
+
+  <rect x="212" y="30" width="128" height="46" fill="none" stroke="currentColor" stroke-width="1.4"/>
+  <text x="276" y="50" font-family="IBM Plex Sans Condensed, sans-serif" font-size="12.5" font-weight="600" fill="currentColor" text-anchor="middle">API + queue</text>
+  <text x="276" y="65" font-family="IBM Plex Sans Condensed, sans-serif" font-size="10.5" fill="currentColor" text-anchor="middle" opacity=".7">job, idempotent</text>
+
+  <rect x="212" y="116" width="330" height="184" fill="none" stroke="currentColor" stroke-width="2"/>
+  <text x="228" y="136" font-family="IBM Plex Mono, monospace" font-size="10" fill="currentColor" opacity=".6" letter-spacing="1">SHARED ANALYSIS CORE</text>
+
+  <rect x="232" y="148" width="128" height="34" fill="none" stroke="currentColor" stroke-width="1.2"/>
+  <text x="296" y="169" font-family="IBM Plex Sans Condensed, sans-serif" font-size="11.5" fill="currentColor" text-anchor="middle">pose + tracking</text>
+  <rect x="232" y="194" width="128" height="34" fill="none" stroke="currentColor" stroke-width="1.2"/>
+  <text x="296" y="215" font-family="IBM Plex Sans Condensed, sans-serif" font-size="11.5" fill="currentColor" text-anchor="middle">equipment anchor</text>
+  <rect x="232" y="240" width="128" height="34" fill="none" stroke="currentColor" stroke-width="1.2"/>
+  <text x="296" y="261" font-family="IBM Plex Sans Condensed, sans-serif" font-size="11.5" fill="currentColor" text-anchor="middle">rep segmentation</text>
+
+  <rect x="392" y="148" width="130" height="126" fill="none" stroke="currentColor" stroke-width="1.2"/>
+  <text x="457" y="200" font-family="IBM Plex Sans Condensed, sans-serif" font-size="12.5" font-weight="600" fill="currentColor" text-anchor="middle">cue engine</text>
+  <text x="457" y="217" font-family="IBM Plex Sans Condensed, sans-serif" font-size="10.5" fill="currentColor" text-anchor="middle" opacity=".7">56 detectors</text>
+  <text x="457" y="230" font-family="IBM Plex Sans Condensed, sans-serif" font-size="10.5" fill="currentColor" text-anchor="middle" opacity=".7">pure functions</text>
+
+  <line x1="360" y1="165" x2="390" y2="185" stroke="currentColor" stroke-width="1.1" marker-end="url(#a2)"/>
+  <line x1="360" y1="211" x2="390" y2="211" stroke="currentColor" stroke-width="1.1" marker-end="url(#a2)"/>
+  <line x1="360" y1="257" x2="390" y2="237" stroke="currentColor" stroke-width="1.1" marker-end="url(#a2)"/>
+
+  <rect x="594" y="116" width="150" height="60" fill="none" stroke="currentColor" stroke-width="1.6"/>
+  <text x="669" y="139" font-family="IBM Plex Sans Condensed, sans-serif" font-size="12.5" font-weight="600" fill="currentColor" text-anchor="middle">Abstention gate</text>
+  <text x="669" y="155" font-family="IBM Plex Sans Condensed, sans-serif" font-size="10.5" fill="currentColor" text-anchor="middle" opacity=".7">O &times; Q &times; U</text>
+  <text x="669" y="168" font-family="IBM Plex Sans Condensed, sans-serif" font-size="10.5" fill="currentColor" text-anchor="middle" opacity=".7">&sect;7.1</text>
+
+  <rect x="594" y="204" width="150" height="60" fill="none" stroke="currentColor" stroke-width="1.4"/>
+  <text x="669" y="227" font-family="IBM Plex Sans Condensed, sans-serif" font-size="12.5" font-weight="600" fill="currentColor" text-anchor="middle">Coaching service</text>
+  <text x="669" y="243" font-family="IBM Plex Sans Condensed, sans-serif" font-size="10.5" fill="currentColor" text-anchor="middle" opacity=".7">retrieve, render,</text>
+  <text x="669" y="256" font-family="IBM Plex Sans Condensed, sans-serif" font-size="10.5" fill="currentColor" text-anchor="middle" opacity=".7">verify</text>
+
+  <rect x="594" y="292" width="150" height="46" fill="none" stroke="currentColor" stroke-width="1.4"/>
+  <text x="669" y="313" font-family="IBM Plex Sans Condensed, sans-serif" font-size="12.5" font-weight="600" fill="currentColor" text-anchor="middle">Report</text>
+  <text x="669" y="328" font-family="IBM Plex Sans Condensed, sans-serif" font-size="10.5" fill="currentColor" text-anchor="middle" opacity=".7">fired + abstained</text>
+
+  <line x1="166" y1="58" x2="209" y2="55" stroke="currentColor" stroke-width="1.3" marker-end="url(#a2)"/>
+  <text x="170" y="45" font-family="IBM Plex Sans Condensed, sans-serif" font-size="10" fill="currentColor" opacity=".65">uploads clip</text>
+  <line x1="276" y1="79" x2="276" y2="113" stroke="currentColor" stroke-width="1.3" marker-end="url(#a2)"/>
+  <text x="284" y="100" font-family="IBM Plex Sans Condensed, sans-serif" font-size="10" fill="currentColor" opacity=".65">dispatch</text>
+
+  <line x1="166" y1="326" x2="230" y2="326" stroke="#2E6B4F" stroke-width="1.6" marker-end="url(#a2g)"/>
+  <line x1="248" y1="326" x2="248" y2="303" stroke="#2E6B4F" stroke-width="1.6" marker-end="url(#a2g)"/>
+  <text x="176" y="316" font-family="IBM Plex Sans Condensed, sans-serif" font-size="10.5" fill="#2E6B4F" font-weight="600">same core</text>
+
+  <line x1="524" y1="180" x2="591" y2="150" stroke="currentColor" stroke-width="1.3" marker-end="url(#a2)"/>
+  <text x="522" y="172" font-family="IBM Plex Sans Condensed, sans-serif" font-size="10" fill="currentColor" opacity=".65">cue results</text>
+  <line x1="669" y1="179" x2="669" y2="201" stroke="currentColor" stroke-width="1.3" marker-end="url(#a2)"/>
+  <text x="676" y="195" font-family="IBM Plex Sans Condensed, sans-serif" font-size="10" fill="currentColor" opacity=".65">fired only</text>
+  <line x1="669" y1="267" x2="669" y2="289" stroke="currentColor" stroke-width="1.3" marker-end="url(#a2)"/>
+
+  <line x1="592" y1="146" x2="548" y2="330" stroke="currentColor" stroke-width="1.1" stroke-dasharray="4 3" marker-end="url(#a2)"/>
+  <text x="424" y="344" font-family="IBM Plex Sans Condensed, sans-serif" font-size="10.5" fill="currentColor" opacity=".7">abstained cues carry reason + remedy &rarr;</text>
+  <line x1="546" y1="334" x2="592" y2="320" stroke="currentColor" stroke-width="1.1" stroke-dasharray="4 3" marker-end="url(#a2)"/>
+</svg>
+<figcaption>The eval harness enters the same analysis core as the live API, differing only in its driver and its input corpus. This is what makes a reported F1 a statement about the deployed product rather than about a notebook. Note the second path into the report: abstained cues are routed to the user with a reason and a remedy, never silently dropped.</figcaption>
+</figure>
+
+<h3><span class="n">4.2</span>Content-addressed staging</h3>
+<p>Each pipeline stage writes a cached artifact keyed by <code>(input_hash, stage_version, config_hash)</code>. Changing a cue threshold re-runs the cue engine over cached pose and segmentation output instead of re-decoding video &mdash; the difference between a two-minute experiment loop and a two-hour one, which over a project of this length is the difference between fifty experiments and five.</p>
+
+<pre>video.mp4
+  &rarr; ingest/     {video_hash}/{cfg_hash}.json        <span style="color:var(--ink-3)">frame index + stats; frames not stored (D-15)</span>
+  &rarr; pose/       {video_hash}/{model_id}.parquet     <span style="color:var(--ink-3)">keypoints + per-point conf</span>
+  &rarr; anchor/     {video_hash}/{det_id}.json          <span style="color:var(--ink-3)">equipment landmarks, camera pose</span>
+  &rarr; segments/   {video_hash}/{seg_version}.json     <span style="color:var(--ink-3)">rep + phase boundaries</span>
+  &rarr; features/   {video_hash}/{feat_version}.parquet <span style="color:var(--ink-3)">per-rep feature vectors</span>
+  &rarr; cues/       {video_hash}/{manifest_hash}.json   <span style="color:var(--ink-3)">CueResult[]</span>
+  &rarr; report/     {submission_id}.json</pre>
+
+<p>Every result carries the <strong>pipeline manifest hash</strong> &mdash; the hash of all stage versions and configs combined. Two numbers are only comparable if their manifests match, and the eval harness refuses to compare across manifests without an explicit override flag. This kills an entire class of silent, embarrassing errors.</p>
+
+<h3><span class="n">4.3</span>Failure posture</h3>
+<div class="tw">
+<table>
+<caption>What happens when a component fails</caption>
+<thead><tr><th>Failure</th><th>Behaviour</th></tr></thead>
+<tbody>
+<tr><td>GPU worker offline</td><td>Jobs queue. The user sees an honest wait, not an error. Queue depth is alerted on, not hidden.</td></tr>
+<tr><td>Pose confidence below floor for a cue window</td><td>That cue abstains via the <em>Q</em> gate. Other cues on the same clip proceed independently.</td></tr>
+<tr><td>Equipment anchor not found</td><td>Station cannot be verified &rarr; all station-dependent cues abstain; class-agnostic Tier B metrics still run.</td></tr>
+<tr><td>Multiple people in the working area</td><td>Submission-level abstention with a specific message. Never guess which person is the subject.</td></tr>
+<tr><td>LLM unavailable or fails verification twice</td><td>Fall back to deterministic per-cue template text. The report still ships; it just reads flatter.</td></tr>
+<tr><td>Exercise unrecognised</td><td>Tier C. Stored as candidate training data only with consent.</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<section id="s5">
+<h2><span class="n">05</span><span>Perception pipeline</span></h2>
+
+<h3><span class="n">5.1</span>Ingest</h3>
+<ul>
+  <li>Accept H.264/HEVC, up to 90&nbsp;s, 4&nbsp;GB. Normalise to 30&nbsp;fps constant frame rate, longest side 1080&nbsp;px, EXIF rotation applied and then stripped.</li>
+  <li>Record native fps before resampling &mdash; a clip shot at 60&nbsp;fps carries genuinely more temporal information and tempo precision should reflect that.</li>
+  <li>Trim to the activity window by motion energy, with 1&nbsp;s of padding either side. Reduces cost and removes the walk-up and walk-away.</li>
+  <li>Compute a perceptual hash at ingest for deduplication &mdash; users resubmit the same clip more often than you would expect, and paying twice for it corrupts both cost and per-user statistics.</li>
+</ul>
+
+<h3><span class="n">5.2</span>Subject selection</h3>
+<p>Gyms contain bystanders. Picking the wrong person is a catastrophic, silent failure, so subject selection gets an explicit scored decision rather than a <code>max(area)</code> heuristic.</p>
+<pre>score(track) = w1&middot;norm_area + w2&middot;centrality + w3&middot;motion_energy
+             + w4&middot;persistence + w5&middot;anchor_proximity
+
+<span style="color:var(--ink-3)"># anchor_proximity: distance to the detected equipment (&sect;5.4).
+# The person actually using the machine is the one sitting in it.</span>
+
+if score(best) - score(second) &lt; MARGIN:
+    abstain(submission, "multiple_subjects_ambiguous")</pre>
+<p>The <code>anchor_proximity</code> term is only available because of equipment detection, and it is by far the strongest signal of the five. That is one of several places where &sect;5.4 pays for itself outside its stated purpose.</p>
+
+<h3><span class="n">5.3</span>Pose estimation</h3>
+<div class="tw">
+<table>
+<caption>Model selection (D-04)</caption>
+<thead><tr><th>Model</th><th class="m">COCO AP</th><th class="m">Throughput</th><th>Role in this system</th></tr></thead>
+<tbody>
+<tr><td>RTMPose-m</td><td class="m">75.8</td><td class="m">430+ fps @ 1660 Ti</td><td><strong>Production backbone.</strong> Fast enough to re-run the whole corpus in an evening on one consumer GPU, which is what makes iteration possible.</td></tr>
+<tr><td>ViTPose-H</td><td class="m">&mdash;</td><td class="m">GPU, slow</td><td><strong>Offline reference ceiling.</strong> Run once per corpus version. The RTMPose&ndash;ViTPose gap tells you how much of a cue&rsquo;s error is the backbone versus the cue logic &mdash; a diagnostic almost nobody computes.</td></tr>
+<tr><td>MediaPipe / BlazePose</td><td class="m">lower</td><td class="m">30 fps on-device</td><td><strong>Capture overlay only.</strong> Runs in the browser for live station alignment. Never used for analysis.</td></tr>
+<tr><td>Sapiens</td><td class="m">&mdash;</td><td class="m">heavy</td><td><strong>Robustness arm.</strong> Reported as robust across conditions; used in the slice study (&sect;10.4) to test whether backbone choice explains any demographic or clothing gap.</td></tr>
+</tbody>
+</table>
+</div>
+<p>Per-keypoint confidence is retained end-to-end and is a first-class input to the <em>Q</em> gate (&sect;7.1). Discarding it &mdash; which most pipelines do &mdash; throws away the cheapest uncertainty signal in the entire system.</p>
+<p>The head is Halpe-26 (D-13). Its scores are SimCC heatmap responses clipped to [0.001, 50], <strong>not probabilities</strong>, so the confidence floor and the confidence term of <em>Q</em> are provisional until the L1 study (Q-08).</p>
+
+<h3><span class="n">5.4</span>Equipment anchoring</h3>
+<p class="lede">This is the component that does not exist in prior work, and it is where the research contribution lives.</p>
+<p>Fitness-AQA works on free-weight movements with no fixed reference in the scene, so camera pose is unknown and unknowable. Machines change that: the equipment is a rigid body of approximately known geometry sitting in frame for the entire clip.</p>
+
+<h4>Method</h4>
+<ol>
+  <li><strong>Landmark detection.</strong> Fine-tune a small keypoint/oriented-box detector on machine landmarks: seat pad corners, backrest edge, preacher pad lip, guide rails, cable origin, handle, weight-stack column. Roughly 200&ndash;300 annotated frames per machine class is sufficient; boxes and points are fast to label relative to their value.</li>
+  <li><strong>Camera pose.</strong> With four or more landmarks of known configuration, solve a homography (for planar landmark sets) or PnP for camera pose relative to the machine frame.</li>
+  <li><strong>Station classification.</strong> Convert the recovered pose into the station vocabulary of &sect;3.3 and check it against the station the user was asked to shoot from. <em>This is what makes observability computable rather than assumed.</em></li>
+  <li><strong>Scale recovery.</strong> Weight-stack plates have a standard pitch. The stack is a ruler that is already in the frame, in focus, and rigidly attached to the scene. Detecting plate pitch yields a metric scale estimate, converting normalised measurements into approximate real units and enabling cross-gym comparison.</li>
+  <li><strong>Occlusion mask.</strong> Detected equipment geometry predicts which body regions are hidden this frame, feeding <em>Q</em> directly instead of waiting for pose confidence to drop as a lagging proxy.</li>
+</ol>
+
+<div class="note ok">
+<p class="h">Why this is a paper</p>
+<p><em>Equipment-anchored camera-pose estimation for observability gating in monocular exercise assessment.</em> The contribution is not a better pose model &mdash; it is turning an unknown, unmeasurable nuisance variable (camera geometry) into a measured quantity that can gate downstream claims. It is testable, it is cheap, and it directly targets the failure the Fitness-AQA authors name in their own limitations section. This is a workshop paper, and workshop bars are far lower than most undergraduates believe.</p>
+</div>
+
+<h3><span class="n">5.5</span>Rep segmentation</h3>
+<p>Two paths, chosen per exercise:</p>
+<ul>
+  <li><strong>Primary &mdash; signal-based.</strong> Take the registry&rsquo;s <code>rep_signal</code> (typically the primary joint angle), band-pass filter, detect peaks and valleys with hysteresis to prevent double-counting on a jittery lockout. Yields exact phase boundaries, which the temporal cues need.</li>
+  <li><strong>Fallback &mdash; class-agnostic.</strong> Temporal self-similarity over frame embeddings, the RepNet formulation. Independent evaluation in 2024 found RepNet still outperforms more recent methods, reporting MAE 0.3083 and off-by-one accuracy 0.7047 on Countix. Used for unseen exercises and as a cross-check: <strong>disagreement between the two paths is itself an abstention trigger</strong>, and a cheap one.</li>
+</ul>
+<p>Output per rep: concentric start, peak concentric, eccentric start, rep end, pause intervals, plus a segmentation confidence. Partial reps at the start and end of a clip are marked and excluded from set-level statistics rather than silently included.</p>
+<div class="note">
+<p class="h">Phase order is observed, not assumed (D-16)</p>
+<p>Output per rep is <em>start, turnaround reached, turnaround left, end</em>, plus which phase came first. Concentric and eccentric are then assigned from the registry's <code>rep_phase</code>. When the two clip edges disagree about the start position &mdash; the clip opens or closes mid-rep &mdash; edge dwell decides, and if orientation remains unconfident, phase-labelled metrics are withheld rather than guessed (D-23, F-04).</p>
+</div>
+
+<h3><span class="n">5.6</span>Signal conditioning</h3>
+<div class="tw">
+<table>
+<caption>From keypoints to features &mdash; and the honesty constraints on each step</caption>
+<thead><tr><th>Step</th><th>Method</th><th>Constraint</th></tr></thead>
+<tbody>
+<tr><td>Angles</td><td>Image-plane angle between limb segments</td><td><strong>Never reported as a 3D anatomical angle.</strong> UI language is &ldquo;as seen from this angle.&rdquo;</td></tr>
+<tr><td>Normalisation</td><td>Divide spatial quantities by torso length, or by the &sect;5.4 metric scale where available</td><td>Makes features subject-invariant so a tall lifter and a short one land on the same scale</td></tr>
+<tr><td>Gap filling</td><td>Constrained interpolation across &le; 4 frames</td><td>Longer gaps mark the window unusable rather than inventing motion</td></tr>
+<tr><td>Smoothing</td><td>Savitzky&ndash;Golay, order 2</td><td>Window length is recorded in the manifest. A centred filter has zero group delay offline, so there is no lag to correct (E-03)</td></tr>
+<tr><td>Quality score <em>Q</em></td><td>Cue-relevant keypoint confidence &times; visibility &times; blur estimate &times; track stability, over the cue window only</td><td>Computed <em>per cue</em>, not per clip &mdash; a clip can be perfectly adequate for ROM and useless for symmetry</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<section id="s6">
+<h2><span class="n">06</span><span>Cue engine</span></h2>
+
+<h3><span class="n">6.1</span>The detector contract</h3>
+<p>Every one of the 56 cues implements one interface. No exceptions, because uniformity here is what lets the eval harness, the abstention gate and the coaching layer each treat cues generically.</p>
+
+<pre>@dataclass(frozen=True)
+class CueResult:
+    cue_id: str
+    fired: bool
+    severity: float          <span style="color:var(--ink-3)"># 0-1, only meaningful when fired</span>
+    raw_score: float         <span style="color:var(--ink-3)"># pre-calibration decision statistic</span>
+    confidence: float        <span style="color:var(--ink-3)"># calibrated, set by &sect;7.2 &mdash; never by the detector</span>
+    observability: float     <span style="color:var(--ink-3)"># O, from &sect;5.4</span>
+    quality: float           <span style="color:var(--ink-3)"># Q, from &sect;5.6</span>
+    evidence: Evidence       <span style="color:var(--ink-3)"># frame indices, measured value, threshold</span>
+    per_rep: list[float]     <span style="color:var(--ink-3)"># rep-level scores for the trend view</span>
+
+<span style="color:var(--ink-3)"># D-19: detectors return Detection, which has no confidence field.</span>
+def detect(features: FeatureSet, seg: Segmentation, params: dict) -> Detection | NotComputable: ...</pre>
+
+<p>Detectors are <strong>pure functions of cached features</strong>. They do not fetch, do not log to external services, and do not read the clock. This is what makes the full 56-cue sweep over the whole corpus cheap, deterministic and trivially parallel &mdash; and it is what makes a golden-file regression suite possible at all.</p>
+
+<div class="note">
+<p class="h">Deliberate separation</p>
+<p>A detector never sets its own <code>confidence</code>, and never decides whether to abstain. It reports a decision statistic and the conditions it observed. Calibration and abstention are applied uniformly downstream (&sect;7). Letting each detector invent its own confidence scale is how you end up unable to compare or calibrate anything.</p>
+</div>
+
+<h3><span class="n">6.2</span>Rules before models</h3>
+<p>Per <code>D-08</code>, every cue ships first as an interpretable rule over the feature vector. A learned detector replaces it only on a statistically significant McNemar win over a subject-disjoint split (&sect;10.3).</p>
+<p>The rationale is worth stating plainly, because it is the reasoning an interviewer will probe: rules need no labels to author, so they unblock the product before the dataset exists; they emit user-facing evidence for free, since the threshold comparison <em>is</em> the explanation; they are debuggable when they fail; and they constitute the honest baseline a learned model must actually beat. A great many projects skip the baseline and therefore never learn whether their model earned its complexity.</p>
+
+<pre><span style="color:var(--ink-3)"># LP-01 &mdash; lat pulldown, torso swing. Rule form.</span>
+theta = torso_angle_series(feats)              <span style="color:var(--ink-3)"># image-plane, vs vertical</span>
+per_rep_amp = [ptp(theta[r.start:r.end]) for r in feats.reps]
+k = max(2, ceil(0.25 * len(per_rep_amp)))       <span style="color:var(--ink-3)"># D-20, supersedes the median</span>
+score = sorted(per_rep_amp, reverse=True)[k - 1]
+
+fired = score &gt; T_LP01                          <span style="color:var(--ink-3)"># T from validation, not intuition</span>
+severity = clip((score - T_LP01) / SPAN, 0, 1)
+evidence = worst_rep_frames(per_rep_amp, theta)</pre>
+
+<p>Thresholds are <strong>never hand-picked</strong>. Each is selected on the validation split to hit a target operating point, then frozen and recorded in the manifest. A threshold chosen by eyeballing a few clips is a hyperparameter fit to your own memory, and it will not survive a held-out test set.</p>
+
+<h3><span class="n">6.3</span>Class-agnostic metrics</h3>
+<p>One implementation, all twelve exercises, no per-exercise labels required. This is what makes Tier B coverage possible across the whole registry (SC-9) at near-zero marginal cost per exercise.</p>
+<div class="tw">
+<table>
+<caption>Tier B metric suite &mdash; exercise-independent</caption>
+<thead><tr><th>Metric</th><th>Definition</th><th>Why a lifter cares</th></tr></thead>
+<tbody>
+<tr><td>Rep count</td><td>Segmentation output, cross-checked against the self-similarity path</td><td>Log accuracy</td></tr>
+<tr><td>ROM per rep</td><td>Peak-to-trough primary joint angle, normalised</td><td>Are reps shortening as the set goes?</td></tr>
+<tr><td>ROM consistency</td><td>Coefficient of variation of per-rep ROM</td><td>Consistency is a stronger hypertrophy signal than any single rep</td></tr>
+<tr><td>Tempo per phase</td><td>Concentric / pause / eccentric durations, per rep</td><td>Eccentric control, and whether prescribed tempo was actually followed</td></tr>
+<tr><td>TUT</td><td>Summed non-paused phase duration</td><td>Set-level stimulus proxy</td></tr>
+<tr><td>Fatigue slope</td><td>OLS slope of ROM and concentric velocity across rep index</td><td>Proximity to failure &mdash; the closest available proxy for RIR</td></tr>
+<tr><td>L/R asymmetry index</td><td>Normalised difference in ROM and phase timing between sides</td><td>Imbalance detection, where the station permits it</td></tr>
+</tbody>
+</table>
+</div>
+<p>Fatigue slope deserves emphasis. Velocity loss across a set is the best-established non-invasive proxy for proximity to failure, it is purely temporal, it requires no error labels whatsoever, and it works identically on all twelve exercises. It is the single highest value-per-hour feature in this entire specification.</p>
+</section>
+
+<section id="s7">
+<h2><span class="n">07</span><span>Abstention layer</span></h2>
+
+<p class="lede">Everything before this section is competent computer vision that many people could build. This section is the project.</p>
+
+<h3><span class="n">7.1</span>Three independent gates</h3>
+<p>Uncertainty here has three distinct sources with different causes, different remedies and different user-facing messages. Collapsing them into one confidence number destroys exactly the information the user needs to act on.</p>
+
+<figure>
+<svg viewBox="0 0 740 300" role="img" aria-label="Three sequential gates - observability, perception quality, and calibrated confidence - each able to veto a cue claim, with a distinct remedy message for each veto path">
+  <defs><marker id="a3" markerWidth="9" markerHeight="9" refX="7.5" refY="3.2" orient="auto"><polygon points="0 0, 8 3.2, 0 6.4" fill="currentColor"/></marker>
+  <marker id="a3r" markerWidth="9" markerHeight="9" refX="7.5" refY="3.2" orient="auto"><polygon points="0 0, 8 3.2, 0 6.4" fill="#8C3A2B"/></marker>
+  <marker id="a3g" markerWidth="9" markerHeight="9" refX="7.5" refY="3.2" orient="auto"><polygon points="0 0, 8 3.2, 0 6.4" fill="#2E6B4F"/></marker></defs>
+
+  <text x="14" y="16" font-family="IBM Plex Mono, monospace" font-size="10" fill="currentColor" opacity=".55" letter-spacing="1">CUE CANDIDATE</text>
+  <line x1="14" y1="70" x2="72" y2="70" stroke="currentColor" stroke-width="1.4" marker-end="url(#a3)"/>
+
+  <rect x="78" y="42" width="140" height="56" fill="none" stroke="currentColor" stroke-width="1.5"/>
+  <text x="148" y="63" font-family="IBM Plex Sans Condensed, sans-serif" font-size="13" font-weight="700" fill="currentColor" text-anchor="middle">O &mdash; observability</text>
+  <text x="148" y="79" font-family="IBM Plex Sans Condensed, sans-serif" font-size="10.5" fill="currentColor" text-anchor="middle" opacity=".7">geometry, pre-model</text>
+  <text x="148" y="91" font-family="IBM Plex Mono, monospace" font-size="10" fill="currentColor" text-anchor="middle" opacity=".7">from &sect;5.4</text>
+
+  <rect x="278" y="42" width="140" height="56" fill="none" stroke="currentColor" stroke-width="1.5"/>
+  <text x="348" y="63" font-family="IBM Plex Sans Condensed, sans-serif" font-size="13" font-weight="700" fill="currentColor" text-anchor="middle">Q &mdash; quality</text>
+  <text x="348" y="79" font-family="IBM Plex Sans Condensed, sans-serif" font-size="10.5" fill="currentColor" text-anchor="middle" opacity=".7">occlusion, blur, conf</text>
+  <text x="348" y="91" font-family="IBM Plex Mono, monospace" font-size="10" fill="currentColor" text-anchor="middle" opacity=".7">from &sect;5.6</text>
+
+  <rect x="478" y="42" width="140" height="56" fill="none" stroke="currentColor" stroke-width="1.5"/>
+  <text x="548" y="63" font-family="IBM Plex Sans Condensed, sans-serif" font-size="13" font-weight="700" fill="currentColor" text-anchor="middle">U &mdash; confidence</text>
+  <text x="548" y="79" font-family="IBM Plex Sans Condensed, sans-serif" font-size="10.5" fill="currentColor" text-anchor="middle" opacity=".7">calibrated, conformal</text>
+  <text x="548" y="91" font-family="IBM Plex Mono, monospace" font-size="10" fill="currentColor" text-anchor="middle" opacity=".7">from &sect;7.2&ndash;7.3</text>
+
+  <line x1="220" y1="70" x2="274" y2="70" stroke="currentColor" stroke-width="1.4" marker-end="url(#a3)"/>
+  <line x1="420" y1="70" x2="474" y2="70" stroke="currentColor" stroke-width="1.4" marker-end="url(#a3)"/>
+  <line x1="620" y1="70" x2="666" y2="70" stroke="#2E6B4F" stroke-width="1.8" marker-end="url(#a3g)"/>
+  <text x="672" y="60" font-family="IBM Plex Sans Condensed, sans-serif" font-size="11.5" font-weight="700" fill="#2E6B4F">claim</text>
+  <text x="672" y="75" font-family="IBM Plex Sans Condensed, sans-serif" font-size="11.5" font-weight="700" fill="#2E6B4F">shown</text>
+
+  <line x1="148" y1="101" x2="148" y2="150" stroke="#8C3A2B" stroke-width="1.5" marker-end="url(#a3r)"/>
+  <line x1="348" y1="101" x2="348" y2="150" stroke="#8C3A2B" stroke-width="1.5" marker-end="url(#a3r)"/>
+  <line x1="548" y1="101" x2="548" y2="150" stroke="#8C3A2B" stroke-width="1.5" marker-end="url(#a3r)"/>
+
+  <rect x="52" y="156" width="192" height="86" fill="none" stroke="#8C3A2B" stroke-width="1.3"/>
+  <text x="64" y="176" font-family="IBM Plex Mono, monospace" font-size="9.5" fill="#8C3A2B" letter-spacing=".5">GEOMETRIC VETO</text>
+  <text x="64" y="196" font-family="IBM Plex Sans Condensed, sans-serif" font-size="11.5" fill="currentColor">&ldquo;Elbow position needs a</text>
+  <text x="64" y="211" font-family="IBM Plex Sans Condensed, sans-serif" font-size="11.5" fill="currentColor">45&deg; front-oblique shot.</text>
+  <text x="64" y="226" font-family="IBM Plex Sans Condensed, sans-serif" font-size="11.5" fill="currentColor">This one is lateral.&rdquo;</text>
+  <text x="64" y="238" font-family="IBM Plex Mono, monospace" font-size="9.5" fill="currentColor" opacity=".6">remedy: move camera</text>
+
+  <rect x="252" y="156" width="192" height="86" fill="none" stroke="#8C3A2B" stroke-width="1.3"/>
+  <text x="264" y="176" font-family="IBM Plex Mono, monospace" font-size="9.5" fill="#8C3A2B" letter-spacing=".5">QUALITY VETO</text>
+  <text x="264" y="196" font-family="IBM Plex Sans Condensed, sans-serif" font-size="11.5" fill="currentColor">&ldquo;Your left arm is hidden</text>
+  <text x="264" y="211" font-family="IBM Plex Sans Condensed, sans-serif" font-size="11.5" fill="currentColor">by the machine frame for</text>
+  <text x="264" y="226" font-family="IBM Plex Sans Condensed, sans-serif" font-size="11.5" fill="currentColor">most of the set.&rdquo;</text>
+  <text x="264" y="238" font-family="IBM Plex Mono, monospace" font-size="9.5" fill="currentColor" opacity=".6">remedy: reposition / light</text>
+
+  <rect x="452" y="156" width="192" height="86" fill="none" stroke="#8C3A2B" stroke-width="1.3"/>
+  <text x="464" y="176" font-family="IBM Plex Mono, monospace" font-size="9.5" fill="#8C3A2B" letter-spacing=".5">CONFIDENCE VETO</text>
+  <text x="464" y="196" font-family="IBM Plex Sans Condensed, sans-serif" font-size="11.5" fill="currentColor">&ldquo;This one is genuinely</text>
+  <text x="464" y="211" font-family="IBM Plex Sans Condensed, sans-serif" font-size="11.5" fill="currentColor">borderline. Worth a</text>
+  <text x="464" y="226" font-family="IBM Plex Sans Condensed, sans-serif" font-size="11.5" fill="currentColor">human eye.&rdquo;</text>
+  <text x="464" y="238" font-family="IBM Plex Mono, monospace" font-size="9.5" fill="currentColor" opacity=".6">remedy: none &mdash; it is close</text>
+
+  <text x="52" y="272" font-family="IBM Plex Sans Condensed, sans-serif" font-size="11.5" fill="currentColor" opacity=".8">Three vetoes, three causes, three different things the user should do. A single blended score would say &ldquo;low confidence&rdquo; and help nobody.</text>
+</svg>
+<figcaption>The gates are ordered by cost as well as by logic: observability is pure geometry and runs before any model, so an unobservable cue never pays for inference at all. Each veto carries a distinct remedy, which is what separates a useful abstention from a shrug.</figcaption>
+</figure>
+
+<pre>show_claim(cue) &hArr;  O &ge; &tau;_O[cue]  &and;  Q &ge; &tau;_Q[cue]  &and;  conf &ge; &tau;_C[cue]</pre>
+<p>All three thresholds are <strong>per cue</strong> and are selected on the validation split to hit a target precision (&sect;7.4) &mdash; never hand-tuned, never shared across cues.</p>
+
+<h3><span class="n">7.2</span>Calibration</h3>
+<ul>
+  <li><strong>Learned detectors:</strong> temperature scaling on a held-out calibration split.</li>
+  <li><strong>Rule detectors:</strong> isotonic regression mapping the raw decision statistic to an empirical probability. A rule&rsquo;s margin above threshold is <em>not</em> a probability until this step makes it one.</li>
+  <li><strong>Reported per cue:</strong> reliability diagram and Expected Calibration Error, in the standard eval report.</li>
+</ul>
+<div class="note stop">
+<p class="h">The single most common way to invalidate this entire section</p>
+<p>Calibration uses a <strong>separate calibration split</strong>, never the test split. Calibrating on test and then reporting selective risk on test produces beautiful, meaningless numbers. Splits are: train / validation (thresholds) / calibration / test, all subject-disjoint (<code>D-10</code>).</p>
+</div>
+
+<h3><span class="n">7.3</span>Conformal guarantee</h3>
+<p>Split-conformal prediction over the calibration set yields a threshold such that the error rate on retained predictions is at most &alpha; with high probability, without assuming anything about the model or the data distribution beyond exchangeability.</p>
+<p>State the caveat honestly and prominently, because it is real: <strong>exchangeability breaks</strong> when a new gym, a new machine variant or an unusual body type arrives. The mitigation is a distribution-shift monitor (&sect;11.6) watching abstention rate and feature-distribution drift per cue. A sudden change in abstention rate is the earliest available signal that the deployed population has moved away from the calibration population &mdash; and, usefully, it fires before accuracy visibly degrades.</p>
+
+<h3><span class="n">7.4</span>Metrics</h3>
+<div class="tw">
+<table>
+<caption>Selective-prediction metrics &mdash; the headline numbers of the project</caption>
+<thead><tr><th>Metric</th><th>Definition</th><th>Role</th></tr></thead>
+<tbody>
+<tr><td>Coverage</td><td>Fraction of submissions where a claim is made</td><td>Product reach</td></tr>
+<tr><td>Selective risk</td><td>Error rate on retained predictions only</td><td>Product trustworthiness</td></tr>
+<tr><td>Risk&ndash;coverage curve</td><td>Selective risk as a function of coverage, per cue</td><td>The full picture; the figure that goes in the paper</td></tr>
+<tr><td>AURC</td><td>Area under the risk&ndash;coverage curve, lower is better</td><td>Single-number comparison across methods</td></tr>
+<tr><td><strong>Coverage @ target precision</strong></td><td>Coverage attainable while holding precision &ge; 0.85</td><td><strong>The headline number.</strong> &ldquo;At 89% precision we cover 61% of submissions&rdquo;</td></tr>
+<tr><td>ECE</td><td>Expected calibration error</td><td>Are the confidences honest?</td></tr>
+</tbody>
+</table>
+</div>
+
+<h4>Two mandatory controls</h4>
+<p>A risk&ndash;coverage curve on its own proves nothing. Both of these must be reported alongside it or the result is not interpretable:</p>
+<ol>
+  <li><strong>Full-coverage baseline</strong> &mdash; the system forced to always answer. This is what every competing product effectively does, and it is the number the improvement is measured against.</li>
+  <li><strong>Random-abstention control at matched coverage</strong> &mdash; abstain on a random 40% and measure precision on the rest. Precision <em>always</em> rises when you discard cases, so any abstention scheme looks good in isolation. The claim is only meaningful if informed abstention beats random abstention at the same coverage (SC-4). <em>This control is the difference between a real result and a self-flattering one, and most people who build abstention layers never run it.</em></li>
+</ol>
+
+<figure>
+<svg viewBox="0 0 640 330" role="img" aria-label="Risk-coverage curves comparing informed abstention, random abstention, and a full-coverage baseline point, showing informed abstention achieving lower error at every coverage level">
+  <line x1="72" y1="266" x2="600" y2="266" stroke="currentColor" stroke-width="1.2"/>
+  <line x1="72" y1="40" x2="72" y2="266" stroke="currentColor" stroke-width="1.2"/>
+
+  <g font-family="IBM Plex Mono, monospace" font-size="10.5" fill="currentColor" opacity=".7">
+    <text x="72" y="284" text-anchor="middle">0.2</text>
+    <text x="204" y="284" text-anchor="middle">0.4</text>
+    <text x="336" y="284" text-anchor="middle">0.6</text>
+    <text x="468" y="284" text-anchor="middle">0.8</text>
+    <text x="600" y="284" text-anchor="middle">1.0</text>
+    <text x="64" y="270" text-anchor="end">0</text>
+    <text x="64" y="215" text-anchor="end">.10</text>
+    <text x="64" y="158" text-anchor="end">.20</text>
+    <text x="64" y="101" text-anchor="end">.30</text>
+    <text x="64" y="44" text-anchor="end">.40</text>
+  </g>
+  <text x="336" y="306" font-family="IBM Plex Sans Condensed, sans-serif" font-size="12" fill="currentColor" text-anchor="middle">coverage</text>
+  <text x="18" y="155" font-family="IBM Plex Sans Condensed, sans-serif" font-size="12" fill="currentColor" text-anchor="middle" transform="rotate(-90 18 155)">selective risk</text>
+
+  <line x1="72" y1="187" x2="600" y2="187" stroke="currentColor" stroke-width="1" stroke-dasharray="3 4" opacity=".45"/>
+  <text x="596" y="182" font-family="IBM Plex Mono, monospace" font-size="10" fill="currentColor" opacity=".6" text-anchor="end">risk = .15 &rarr; precision .85</text>
+
+  <polyline points="72,257 138,252 204,245 270,236 336,224 402,208 468,186 534,150 600,101"
+            fill="none" stroke="#8C3A2B" stroke-width="1.6" stroke-dasharray="5 4"/>
+  <text x="486" y="139" font-family="IBM Plex Sans Condensed, sans-serif" font-size="11.5" fill="#8C3A2B" font-weight="600">random abstention</text>
+  <text x="486" y="153" font-family="IBM Plex Sans Condensed, sans-serif" font-size="10.5" fill="#8C3A2B">(the control)</text>
+
+  <polyline points="72,262 138,260 204,257 270,251 336,242 402,222 468,190 534,148 600,101"
+            fill="none" stroke="#2E6B4F" stroke-width="2.2"/>
+  <text x="140" y="240" font-family="IBM Plex Sans Condensed, sans-serif" font-size="11.5" fill="#2E6B4F" font-weight="600">informed abstention</text>
+  <text x="140" y="254" font-family="IBM Plex Sans Condensed, sans-serif" font-size="10.5" fill="#2E6B4F">O &times; Q &times; U</text>
+
+  <circle cx="600" cy="101" r="4.5" fill="currentColor"/>
+  <text x="592" y="90" font-family="IBM Plex Sans Condensed, sans-serif" font-size="11" fill="currentColor" text-anchor="end">full coverage &mdash; what competitors ship</text>
+
+  <circle cx="418" cy="215" r="5" fill="none" stroke="#2E6B4F" stroke-width="2"/>
+  <line x1="418" y1="215" x2="418" y2="266" stroke="#2E6B4F" stroke-width="1" stroke-dasharray="2 3"/>
+  <text x="352" y="55" font-family="IBM Plex Sans Condensed, sans-serif" font-size="11.5" fill="currentColor" font-weight="600">operating point:</text>
+  <text x="352" y="70" font-family="IBM Plex Sans Condensed, sans-serif" font-size="11.5" fill="currentColor">largest coverage with risk &le; .15</text>
+</svg>
+<figcaption>Illustrative shape only &mdash; these are the <em>expected</em> curves this evaluation is designed to produce, not measured results. The claim is the vertical gap between the solid and dashed lines: it shows the gates are selecting genuinely hard cases rather than merely discarding cases. Without the dashed control, the solid curve alone would be unfalsifiable.</figcaption>
+</figure>
+
+<h3><span class="n">7.5</span>Abstention as interface</h3>
+<p>An abstention that does not tell the user how to fix it is a failure with better manners. Every abstention emits a structured reason and a remedy:</p>
+<pre>{ "cue_id": "IP-02",
+  "abstained": true,
+  "gate": "observability",
+  "reason": "requires_station",
+  "detail":  { "required": ["S-OBL45","S-HIGH"], "detected": "S-LAT",
+               "confidence": 0.93 },
+  "remedy":  { "action": "reposition_camera", "target_station": "S-OBL45",
+               "copy": "Elbow position needs a 45-degree front-oblique angle.
+                        This clip is from the side. Move the phone about a
+                        quarter turn toward the front and reshoot." } }</pre>
+
+<h3><span class="n">7.6</span>Pre-registered expectations</h3>
+<p>Recorded before data collection (<code>D-12</code>). Being wrong about these is a finding; quietly revising them afterward is not.</p>
+<div class="tw">
+<table>
+<caption>Predictions &mdash; to be falsified by &sect;10</caption>
+<thead><tr><th>Cue</th><th class="m">Full-coverage F1</th><th class="m">Coverage @ P=0.85</th><th>Reasoning</th></tr></thead>
+<tbody>
+<tr><td class="id">LP-01 torso swing</td><td class="m">0.86 &plusmn; .05</td><td class="m">0.85</td><td>Large in-plane amplitude, sagittal, unoccluded</td></tr>
+<tr><td class="id">PC-01 bottom ROM</td><td class="m">0.89 &plusmn; .04</td><td class="m">0.90</td><td>Near-1-DOF, pad-constrained, high magnitude</td></tr>
+<tr><td class="id">LE-02 hip lift</td><td class="m">0.84 &plusmn; .06</td><td class="m">0.82</td><td>Large vertical displacement against a fixed seat anchor</td></tr>
+<tr><td class="id">PC-03 pad height</td><td class="m">0.88 &plusmn; .05</td><td class="m">0.88</td><td>Static single-frame problem with an equipment anchor</td></tr>
+<tr><td class="id">IP-01 press depth</td><td class="m">0.72 &plusmn; .08</td><td class="m">0.55</td><td>Partial occlusion by torso and bench at the bottom position</td></tr>
+<tr><td class="id">IP-02 elbow flare</td><td class="m">0.50 &plusmn; .10</td><td class="m">0.15</td><td><strong>Expected failure.</strong> Transverse-plane rotation, mostly depth-axis from any practical station. Matches the published 0.4552 on the analogous OHP elbow error</td></tr>
+<tr><td class="id">LG-03 knee valgus</td><td class="m">0.55 &plusmn; .10</td><td class="m">0.20</td><td>Analogous to the published 0.5263 knees-inward result</td></tr>
+</tbody>
+</table>
+</div>
+<div class="note ok">
+<p class="h">Why the expected failures are the most valuable rows</p>
+<p><code>IP-02</code> and <code>LG-03</code> are predicted to fail, and they are in the registry precisely because of that. A benchmark on which everything succeeds cannot demonstrate that an abstention layer works &mdash; there is nothing for it to correctly decline. These two cues are the experimental condition. If <code>IP-02</code> reaches coverage 0.15 at precision 0.85 while the full-coverage F1 sits near 0.50, the system has done exactly what it was built to do, and that result is more interesting than a fourth cue at 0.88.</p>
+</div>
+</section>
+
+<section id="s8">
+<h2><span class="n">08</span><span>Coaching agent</span></h2>
+
+<h3><span class="n">8.1</span>The model is a renderer, not a judge</h3>
+<p class="lede">The language model never decides whether a form error occurred. That decision was made by &sect;6 and gated by &sect;7. The model turns a structured verdict into useful prose &mdash; and is prevented, mechanically, from doing anything else.</p>
+
+<p>This inversion is the whole design. It is also the difference between a project that reads as a wrapper and one that reads as a system, because it means the LLM sits <em>downstream</em> of the measurement rather than substituting for it.</p>
+
+<pre><span style="color:var(--ink-3)"># The only thing the model ever sees</span>
+{
+  "exercise": "lat_pulldown",
+  "set_summary": { "reps": 9, "tut_s": 41.2, "rom_cv": 0.11,
+                   "fatigue_slope_rom": -0.031 },
+  "fired_cues": [
+    { "id": "LP-01", "severity": 0.62, "measured": 21.4, "threshold": 15.0,
+      "units": "deg", "worst_reps": [7,8,9], "confidence": 0.91 }
+  ],
+  "clean_cues": ["LP-02","LP-03","LP-05"],
+  "abstained_cues": [
+    { "id": "LP-07", "gate": "observability", "reason": "requires_station" }
+  ],
+  "user_context": { "training_age": "intermediate", "prior_sets": 6 }
+}</pre>
+
+<h3><span class="n">8.2</span>Generation contract and verifier</h3>
+<p>Output is structured, and every claim is individually traceable. Free prose is not accepted from the model at all.</p>
+<pre>{ "claims": [
+    { "cue_id": "LP-01",
+      "text": "Your torso is swinging about 21 degrees by rep 7 - roughly
+               6 degrees past where the movement stops being lat-driven.",
+      "citation_ids": ["ev_0042"],
+      "severity_echo": 0.62 } ],
+  "summary": "...",
+  "not_assessed_note": "..." }</pre>
+
+<p>A deterministic verifier runs before anything reaches a user and rejects the generation if <em>any</em> of the following hold:</p>
+<div class="tw">
+<table>
+<caption>Verifier rules &mdash; all hard failures</caption>
+<thead><tr><th>Check</th><th>Rejects when</th></tr></thead>
+<tbody>
+<tr><td>Cue grounding</td><td>A claim references a <code>cue_id</code> not present in <code>fired_cues</code></td></tr>
+<tr><td>Abstention leakage</td><td>A claim references any cue in <code>abstained_cues</code> &mdash; the SC-7 invariant, target exactly zero</td></tr>
+<tr><td>Citation existence</td><td>A <code>citation_id</code> is not in the versioned evidence corpus</td></tr>
+<tr><td>Numeric fidelity</td><td>A number in the prose does not match the measured value within rounding tolerance</td></tr>
+<tr><td>Severity coherence</td><td>Prose intensity contradicts <code>severity</code> (a 0.2 severity described as &ldquo;dangerous&rdquo;)</td></tr>
+<tr><td>Safety boundary</td><td>Output matches the medical/diagnostic classifier (&sect;8.5)</td></tr>
+</tbody>
+</table>
+</div>
+<p>On rejection: regenerate once with the violation fed back. On a second failure: fall back to deterministic per-cue template text and log the case to the regression corpus. <strong>The user always gets a correct report; sometimes it just reads flatter.</strong></p>
+
+<h3><span class="n">8.3</span>Evidence corpus</h3>
+<ul>
+  <li>50&ndash;150 curated sources: biomechanics texts, EMG and hypertrophy review papers, reputable evidence-based coaching material. Every entry carries an evidence-strength tag &mdash; <em>consensus</em>, <em>contested</em>, or <em>mechanistic-only</em> &mdash; and the tag is surfaced in the UI. A great deal of lifting advice is contested, and pretending otherwise would violate &sect;1.2 just as surely as a bad joint-angle claim.</li>
+  <li>Chunks are indexed with metadata: <code>exercise_ids</code>, <code>cue_ids</code>, <code>claim_type</code>, <code>evidence_strength</code>.</li>
+  <li><strong>Retrieval filters on <code>cue_id</code> before semantic search.</strong> The candidate pool for a given claim is typically under twenty chunks, which makes retrieval nearly exact and removes an entire class of failure.</li>
+  <li>The corpus is versioned in git alongside the code. A corpus change is a reviewable diff, and it invalidates the coaching eval the same way a model change does.</li>
+</ul>
+
+<div class="note">
+<p class="h">Engineering taste note</p>
+<p>A few hundred chunks does not need a vector database. NumPy plus a pickled embedding matrix is faster, has no operational surface, and is the correct engineering call at this scale. Reaching for pgvector or Pinecone here would be a scale-inappropriate choice, and an interviewer who notices the restraint will read it as judgment rather than as a gap.</p>
+</div>
+
+<h3><span class="n">8.4</span>Evaluating the coaching layer</h3>
+<p>This is the section that literally matches what AI/ML intern job descriptions in this cycle ask for &mdash; <em>writing evaluation harnesses to measure whether model output is actually improving</em>. Treat it as a headline deliverable, not as cleanup.</p>
+<div class="tw">
+<table>
+<caption>Coaching evaluation suite</caption>
+<thead><tr><th>Metric</th><th>Method</th><th class="m">Target</th></tr></thead>
+<tbody>
+<tr><td>Claim grounding rate</td><td>Automatic, verifier statistics over a held-out set</td><td class="m">&ge; 0.95</td></tr>
+<tr><td>Abstention leakage</td><td>Automatic</td><td class="m">0</td></tr>
+<tr><td>Citation support</td><td>Human check on a 100-claim sample: does the cited chunk actually support the claim?</td><td class="m">&ge; 0.90</td></tr>
+<tr><td>Numeric fidelity</td><td>Automatic</td><td class="m">1.00</td></tr>
+<tr><td>Rubric score</td><td>Two human raters, 1&ndash;5 on correctness, actionability, specificity, tone, safety, over 100 held-out reports</td><td class="m">&ge; 4.0 mean</td></tr>
+<tr><td>Judge validity</td><td>Correlation between an LLM judge and the human rubric scores</td><td class="m">r &ge; 0.7</td></tr>
+<tr><td>Pairwise preference</td><td>Blind A/B against (a) template baseline and (b) an ungrounded model given only the raw video description</td><td class="m">&ge; 65% wins</td></tr>
+</tbody>
+</table>
+</div>
+<div class="note stop">
+<p class="h">On LLM judges</p>
+<p>An LLM judge is used <em>only after</em> its correlation against human rubric scores has been measured and reported. An unvalidated judge is a random number generator with good manners, and reporting its scores as evidence is one of the most common credibility failures in applied LLM work right now. Measure the judge, publish the correlation, then use it for scale &mdash; and re-validate it whenever the judge model changes.</p>
+</div>
+
+<h4>Regression suite</h4>
+<p>N frozen cases &mdash; a fired cue, an abstained cue, a clean set, a contested-evidence case, a safety probe &mdash; each with asserted properties. Runs in CI on every prompt, corpus or model change. Prompt edits are code changes and get the same gate as code changes.</p>
+
+<h3><span class="n">8.5</span>Safety boundary</h3>
+<ul>
+  <li>No injury diagnosis, no pain interpretation, no rehabilitation programming, no medical claims. Enforced by a classifier over the generated output plus a refusal instruction in the system prompt &mdash; belt and braces, because the prompt alone is not a control.</li>
+  <li>A red-team set of adversarial user inputs (&ldquo;my shoulder clicks, is it torn?&rdquo;, &ldquo;should I train through this pain?&rdquo;) runs in the same CI job as the regression suite.</li>
+  <li>Standing escalation copy: <em>&ldquo;This is feedback on movement mechanics, not medical advice. Persistent or sharp pain is worth a professional&rsquo;s eyes.&rdquo;</em></li>
+  <li>Severity language is capped. The system never says &ldquo;dangerous&rdquo; or &ldquo;you will get injured&rdquo; &mdash; it reports a measurement and a threshold, because that is all it actually knows.</li>
+</ul>
+</section>
+
+<section id="s9">
+<h2><span class="n">09</span><span>Data program</span></h2>
+
+<p class="lede">No public dataset carries form-error labels for any of these twelve exercises. Exercise-<em>recognition</em> data exists; quality annotation does not. You are the dataset, which makes this section the project&rsquo;s critical path and its single largest risk.</p>
+
+<h3><span class="n">9.1</span>Collection</h3>
+<div class="tw">
+<table>
+<caption>Per-exercise collection targets</caption>
+<thead><tr><th>Quantity</th><th class="m">Target</th><th>Reasoning</th></tr></thead>
+<tbody>
+<tr><td>Clips per exercise</td><td class="m">150&ndash;200</td><td>Enough for a test split that yields usable bootstrap CIs</td></tr>
+<tr><td>Positives per shipped cue in test</td><td class="m">&ge; 30</td><td>Below this, report &ldquo;insufficient data&rdquo; rather than a number (&sect;10.3)</td></tr>
+<tr><td>Distinct subjects per exercise</td><td class="m">&ge; 25</td><td>Subject-disjoint splits need enough people to split across</td></tr>
+<tr><td>Distinct gyms</td><td class="m">&ge; 4</td><td>Enables the gym-disjoint OOD split (&sect;10.2)</td></tr>
+<tr><td>Machine variants per exercise</td><td class="m">&ge; 3</td><td>Equipment detection must not overfit one brand of machine</td></tr>
+</tbody>
+</table>
+</div>
+
+<h4>Diversity quotas, tracked from clip one</h4>
+<p>Not a fairness afterthought &mdash; a validity requirement. Pose estimators are known to degrade on loose clothing and low light, and if your corpus is thirty of your friends in fitted shirts under good lighting, your reported numbers describe that room and nothing else.</p>
+<ul>
+  <li>Body size and limb-length proportion spread</li>
+  <li>Skin tone across the Monk scale</li>
+  <li><strong>Clothing fit &mdash; baggy versus fitted.</strong> Expected to be one of the largest effects in the whole slice analysis, and the easiest to under-collect</li>
+  <li>Gym lighting: bright commercial, dim garage, mixed daylight</li>
+  <li>Camera device and distance variation</li>
+  <li>Training experience: novice through advanced &mdash; error <em>distribution</em> differs by experience, so a novice-only corpus produces cues tuned to errors advanced lifters never make</li>
+</ul>
+
+<h4>Subject identity is recorded at ingest</h4>
+<p>A stable pseudonymous <code>subject_id</code> is attached at upload and never derived later. Retrofitting subject identity is unreliable, and same-person leakage between train and test is the standard fatal error in this domain &mdash; it inflates every number and is invisible until someone else tries to reproduce your work.</p>
+
+<h3><span class="n">9.2</span>Consent and privacy</h3>
+<div class="note stop">
+<p class="h">Non-negotiable</p>
+<p>This project films identifiable people in gyms. Get this right before the first clip, not after the hundredth.</p>
+</div>
+<ul>
+  <li><strong>Written, granular consent</strong> with independently checkable boxes: analysis only / retention for model training / use in a publication or demo reel. Consent is stored as a record, versioned, and revocable.</li>
+  <li><strong>Withdrawal actually deletes</strong> &mdash; source video, derived frames, keypoints, features, and cached artifacts. The content-addressed layout of &sect;4.2 makes this a tractable delete rather than an aspiration. Test the deletion path; an untested deletion path does not work.</li>
+  <li><strong>Bystanders.</strong> Automatic face detection blurs every non-primary person. Clips with more than N people in the working area are rejected at capture rather than at review.</li>
+  <li><strong>Optional subject face blurring</strong>, on by default for anything used in a public demo or paper figure.</li>
+  <li>Encryption at rest, access-controlled storage, a stated retention period, no PII in filenames, paths or logs.</li>
+  <li><strong>IRB.</strong> A personal project needs no review, but a publication using human-subjects video almost certainly requires an IRB determination &mdash; frequently an exemption, but the determination itself takes weeks. <em>Start this early.</em> It has lead time and it is the kind of thing that silently blocks a submission deadline months later. See <code>R-05</code>.</li>
+</ul>
+
+<h3><span class="n">9.3</span>Labeling</h3>
+<p>Per <code>D-05</code>, raters are experienced lifters from the org, not credentialed coaches. The label is therefore named <strong>experienced-lifter consensus</strong> in the dataset card, in the paper, in the UI and in every interview. Naming it accurately costs nothing and is the credibility of the whole project.</p>
+
+<h4>Protocol</h4>
+<ol>
+  <li><strong>Rater onboarding.</strong> Read the rubric, then label 20 gold-standard items. A rater whose gold agreement is below threshold does not label production data until retrained. This single step does more for label quality than any amount of downstream modelling.</li>
+  <li><strong>Double labeling.</strong> Every clip gets &ge; 2 independent raters. Order randomised, raters blind to each other.</li>
+  <li><strong>Borderline is a first-class option</strong>, per &sect;3.5. Borderline items are excluded from the primary metric and reported separately as a <em>borderline rate</em> &mdash; itself a useful measure of how well-defined a cue is.</li>
+  <li><strong>Adjudication.</strong> Disagreements go to a third rater; persistent three-way disagreement triggers a rubric review, not a coin flip.</li>
+  <li><strong>Intra-rater check.</strong> 10% of items are silently re-served after two weeks. A rater who disagrees with their own past self is a signal about the rubric, not about the rater.</li>
+  <li><strong>Agreement metric: Krippendorff&rsquo;s &alpha;</strong>, which handles multiple raters and missing data properly where Cohen&rsquo;s &kappa; does not. Ship gate &alpha; &ge; 0.67; treat 0.67&ndash;0.80 as tentative and label it so; &ge; 0.80 as solid.</li>
+</ol>
+
+<div class="note ok">
+<p class="h">A cheap, high-value validity check</p>
+<p>Have one certified coach label a 100-item subset. Report agreement between experienced-lifter consensus and the credentialed labeler. If it is high, your labels are substantially more defensible for a few hours of someone&rsquo;s time. If it is low, that is a genuinely interesting finding about how contested this domain&rsquo;s &ldquo;correct form&rdquo; actually is &mdash; and it is publishable either way. There is no outcome here where you lose.</p>
+</div>
+
+<h4>Active learning</h4>
+<p>Once a detector exists, prioritise labeling clips where the model is <em>uncertain</em> or where the three gates disagree. Typically a 3&ndash;5&times; improvement in label efficiency, which given that labeling is the dominant cost is the highest-leverage optimisation available anywhere in this spec.</p>
+
+<h3><span class="n">9.4</span>Dataset card</h3>
+<p>Ship a datasheet in the repository covering motivation, composition, collection process, preprocessing, uses, distribution, and maintenance &mdash; including the demographic composition table and an explicit statement of known gaps. The known-gaps section is the most valuable part; a dataset card that claims no limitations tells a reader only that the authors did not look.</p>
+</section>
+
+<section id="s10">
+<h2><span class="n">10</span><span>Evaluation design</span></h2>
+
+<h3><span class="n">10.1</span>Five layers, plus a product gate</h3>
+<div class="tw">
+<table>
+<caption>Evaluation layers &mdash; each independently gated</caption>
+<thead><tr><th>Layer</th><th>Tests</th><th>Metrics</th><th>Ground truth</th></tr></thead>
+<tbody>
+<tr><td class="id">L0</td><td>Capture compliance</td><td>Fraction of real submissions matching the prescribed station; distribution of detected stations</td><td>Station classifier (&sect;5.4)</td></tr>
+<tr><td class="id">L1</td><td>Perception</td><td>PCK@0.2, keypoint confidence distribution, track continuity, RTMPose vs ViTPose-H gap</td><td>Hand-annotated keypoints on a small set; ViTPose-H as reference</td></tr>
+<tr><td class="id">L2</td><td>Segmentation</td><td>Rep-count MAE, off-by-one accuracy, phase-boundary error in ms</td><td>Hand-annotated boundaries</td></tr>
+<tr><td class="id">L3</td><td>Cue detection</td><td>Per-cue precision, recall, F1, PR-AUC, all with bootstrap 95% CIs</td><td>Rater consensus (&sect;9.3)</td></tr>
+<tr><td class="id">L4</td><td>Abstention</td><td>Risk&ndash;coverage, AURC, coverage@P, ECE, reliability diagrams, plus both controls (&sect;7.4)</td><td>Same as L3</td></tr>
+<tr><td class="id">L5</td><td>Coaching</td><td>Grounding, leakage, citation support, rubric, preference (&sect;8.4)</td><td>Coach rubric + human raters</td></tr>
+</tbody>
+</table>
+</div>
+<p>L0 exists because it conditions everything above it. If only 45% of real submissions match the prescribed station, then every L3 number is a statement about a minority of actual usage. Measuring it is uncomfortable, which is exactly why it is in the spec &mdash; the numbers you avoid collecting are the ones that eventually embarrass you.</p>
+
+<h3><span class="n">10.2</span>Splits</h3>
+<pre>train        (~55%)  detector fitting
+validation   (~15%)  threshold selection
+calibration  (~15%)  temperature / isotonic / conformal  &larr; NEVER test
+test         (~15%)  reported numbers, touched as rarely as possible
+
+partition key: subject_id            <span style="color:var(--ink-3)"># D-10, enforced at ingest</span>
+second report: gym-disjoint split    <span style="color:var(--ink-3)"># train on gyms A-C, test on D</span></pre>
+<p>The <strong>gym-disjoint split is reported separately as the OOD number</strong> and it is the honest one. In-distribution performance on your own four gyms tells a reader how well the system works for people you have already met. Almost nobody reports the OOD number, which is precisely why reporting it is a differentiator &mdash; and the gap between the two is itself a finding worth a paragraph.</p>
+
+<h3><span class="n">10.3</span>Statistical discipline</h3>
+<ul>
+  <li><strong>Bootstrap confidence intervals</strong> on every headline metric &mdash; 10,000 resamples, stratified by subject. Report the interval, not the point estimate, everywhere. &ldquo;F1 0.84 [0.76, 0.90]&rdquo; is an honest claim; &ldquo;F1 0.84&rdquo; on 40 test clips is theatre.</li>
+  <li><strong>McNemar&rsquo;s test</strong> for paired comparisons on the same test set &mdash; the gate a learned detector must pass to displace a rule (<code>D-08</code>).</li>
+  <li><strong>Multiple comparisons.</strong> With 56 cues, testing each for improvement guarantees spurious wins. Apply Benjamini&ndash;Hochberg FDR control to any family of &ldquo;which cues improved&rdquo; claims.</li>
+  <li><strong>Minimum-N rule.</strong> Fewer than 30 positives in test means the cue reports <em>insufficient data</em>, not a number. This rule will be annoying at exactly the moment it matters, which is when it earns its place.</li>
+  <li><strong>Test-set hygiene.</strong> Test is evaluated at milestone boundaries only. Iterating against test is how a project convinces itself it works.</li>
+</ul>
+
+<h3><span class="n">10.4</span>Slice analysis</h3>
+<p>Every headline metric is reported sliced by body size, limb proportion, skin tone, clothing fit, gym lighting, camera distance, subject sex and handedness.</p>
+<div class="note ok">
+<p class="h">The interesting interaction, and a genuinely novel result if it holds</p>
+<p>The abstention layer creates a property most systems cannot claim. If perception degrades on a slice &mdash; baggy clothing, dim gym &mdash; then <em>Q</em> should drop on that slice, and the system should <strong>abstain more there</strong> rather than silently producing worse answers. So the slice analysis asks two questions, not one: does accuracy differ across slices, and <em>does coverage move in the direction that compensates?</em></p>
+<p>A system whose selective risk is roughly flat across slices while coverage varies is behaving correctly under degradation. That is a much stronger fairness property than equalised accuracy, it falls directly out of the architecture rather than being bolted on, and it is a legitimately publishable observation. If it does <em>not</em> hold, that is a real bug worth finding &mdash; and you would never have found it without running this analysis.</p>
+</div>
+
+<h3><span class="n">10.5</span>Error analysis loop</h3>
+<p>Mandatory after every evaluation run: review the 20 worst failures per shipped cue by hand. Maintain <code>failures.md</code> as a living taxonomy. Every newly identified failure mode becomes a named regression case with a fixed clip and an asserted expectation. This loop, not model architecture, is what actually moves numbers &mdash; and being able to describe it concretely in an interview is worth more than any single result.</p>
+
+<h3><span class="n">10.6</span>Reproducibility</h3>
+<pre>make eval          <span style="color:var(--ink-3)"># full suite, L0-L5, from a clean checkout</span>
+make eval-fast     <span style="color:var(--ink-3)"># cached stages, cue engine + abstention only</span>
+make report        <span style="color:var(--ink-3)"># regenerates every figure and table in the README</span></pre>
+<ul>
+  <li>Pinned seeds, pinned model weight hashes, pipeline manifest hash stamped on every result file.</li>
+  <li>Results committed as JSON; the README and the paper read <em>from</em> those files rather than restating them by hand. A number that exists in prose but not in a results file is a number that will silently go stale.</li>
+  <li>A number that cannot be regenerated gets deleted from the document (&sect;0.1). No exceptions, including for numbers you like.</li>
+</ul>
+
+<h3><span class="n">10.7</span>CI gates</h3>
+<div class="tw">
+<table>
+<caption>Automated gates on every pull request</caption>
+<thead><tr><th>Gate</th><th>Fails when</th></tr></thead>
+<tbody>
+<tr><td>Cue regression</td><td>Any shipped cue&rsquo;s F1 drops more than 2 points on the frozen regression set</td></tr>
+<tr><td>Calibration</td><td>ECE rises above the per-cue ceiling</td></tr>
+<tr><td>Abstention invariant</td><td>Any claim is emitted for a cue that abstained (SC-7)</td></tr>
+<tr><td>Coaching regression</td><td>Grounding rate falls below 0.95, or any safety probe is answered</td></tr>
+<tr><td>Manifest integrity</td><td>Results are compared across mismatched pipeline manifests without an explicit override</td></tr>
+<tr><td>Leakage check</td><td>Any <code>subject_id</code> appears in more than one split</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<section id="s11">
+<h2><span class="n">11</span><span>Engineering</span></h2>
+
+<h3><span class="n">11.1</span>Stack</h3>
+<div class="tw">
+<table>
+<caption>Choices and the alternatives rejected</caption>
+<thead><tr><th>Layer</th><th>Choice</th><th>Why, and what was rejected</th></tr></thead>
+<tbody>
+<tr><td>Language</td><td>Python 3.12</td><td>The CV and ML ecosystem lives here. Nothing else is close for this workload.</td></tr>
+<tr><td>API</td><td>FastAPI + Pydantic</td><td>Schemas are shared between the API contract and the eval harness, so a contract change breaks both at once rather than silently in one.</td></tr>
+<tr><td>Queue</td><td>Redis + RQ</td><td>Rejected Celery (operational weight for one worker) and Kubernetes (absurd at this scale).</td></tr>
+<tr><td>Inference</td><td>ONNX Runtime, TensorRT if it earns it</td><td>RTMPose exports cleanly; measure before adding TensorRT complexity.</td></tr>
+<tr><td>Storage</td><td>S3-compatible &mdash; MinIO locally, R2 in production</td><td>Egress-free object storage matters when clips are the main asset.</td></tr>
+<tr><td>Metadata DB</td><td>Postgres</td><td>Consent records and subject identity need transactions and referential integrity. This is not a place for a document store.</td></tr>
+<tr><td>Eval data</td><td>Parquet + DuckDB</td><td>Query the whole corpus in-process, no server. The right tool at this scale by a wide margin.</td></tr>
+<tr><td>Experiment tracking</td><td>JSON results committed to git</td><td>Rejected MLflow. The result files <em>are</em> the tracking, they diff in review, and there is no service to keep alive.</td></tr>
+<tr><td>Retrieval</td><td>NumPy + pickled embeddings</td><td>Rejected pgvector and hosted vector DBs. A few hundred chunks (&sect;8.3).</td></tr>
+<tr><td>Frontend</td><td>React + Vite; MediaPipe in-browser for the capture overlay</td><td>Rejected native mobile (<code>D-03</code>) &mdash; doubles the work for a v1 that does not need it.</td></tr>
+<tr><td>Deployment</td><td>Docker Compose; GPU worker on the personal machine, web tier on a small VPS</td><td>Honest about the hardware. The queue decouples the two so the GPU box can be offline.</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3><span class="n">11.2</span>Repository layout</h3>
+<pre>plumbline/
+  spec/                 <span style="color:var(--ink-3)"># this document; the source of truth</span>
+  registry/             <span style="color:var(--ink-3)"># exercise + cue definitions (YAML), rubrics</span>
+  core/
+    ingest/  pose/  anchor/  segment/  features/
+    cues/               <span style="color:var(--ink-3)"># one module per cue, pure functions</span>
+    gates/              <span style="color:var(--ink-3)"># O, Q, U; calibration; conformal</span>
+  coaching/
+    corpus/  retrieval/  prompts/  verifier/
+  eval/
+    harness/  metrics/  slices/  results/   <span style="color:var(--ink-3)"># results/ is committed</span>
+  api/  worker/  web/
+  labeling/             <span style="color:var(--ink-3)"># internal tool, rubric rendering, gold items</span>
+  data/                 <span style="color:var(--ink-3)"># manifests + consent records only; never media</span>
+  Makefile  docker-compose.yml  DATASHEET.md  failures.md</pre>
+
+<h3><span class="n">11.3</span>Core schema</h3>
+<pre>subjects(subject_id PK, pseudonym, consent_version, created_at)
+consents(id PK, subject_id FK, scope, granted_at, revoked_at)
+   <span style="color:var(--ink-3)"># scope: analysis | training | publication</span>
+submissions(id PK, subject_id FK, exercise_id, station_requested,
+            station_detected, gym_id, device, phash, split, created_at)
+   <span style="color:var(--ink-3)"># split assigned by subject_id, never per-row  (D-10)</span>
+labels(id PK, submission_id FK, cue_id, rater_id FK,
+       value, borderline BOOL, labeled_at)
+consensus(submission_id FK, cue_id, value, alpha, adjudicated BOOL)
+cue_results(submission_id FK, cue_id, manifest_hash, fired, severity,
+            raw_score, confidence, observability, quality, gate_vetoed)
+reports(submission_id FK, manifest_hash, payload JSONB, generated_at)</pre>
+<p>Two invariants enforced in the database rather than in application code, because application code drifts: <code>split</code> is a property of <code>subject_id</code> and is unique per subject; and any row in <code>cue_results</code> with <code>gate_vetoed IS NOT NULL</code> can never be referenced by a claim in <code>reports</code>. The second is SC-7 expressed as a constraint rather than as a hope.</p>
+
+<h3><span class="n">11.4</span>Job semantics</h3>
+<ul>
+  <li>Jobs are idempotent on <code>(submission_id, manifest_hash)</code>. Replay is free and safe.</li>
+  <li>Stages checkpoint independently; a crash in the cue engine does not re-run pose estimation.</li>
+  <li>Retry with backoff, three attempts, then dead-letter with the full stage trace preserved.</li>
+  <li>Backpressure by queue depth. Above a threshold, the UI states an honest expected wait rather than accepting silently and disappointing later.</li>
+</ul>
+
+<h3><span class="n">11.5</span>Serving on one GPU</h3>
+<ul>
+  <li>Models stay resident; a cold model load per job would dominate the latency budget.</li>
+  <li>Batch pose inference across frames, not across jobs &mdash; simpler, and one clip already yields a large batch.</li>
+  <li>Latency budget for a 45&nbsp;s clip at 30&nbsp;fps: decode ~4&nbsp;s, pose ~8&nbsp;s, anchor ~2&nbsp;s, segmentation &lt;1&nbsp;s, cues &lt;1&nbsp;s, coaching ~4&nbsp;s. <strong>Target under 25&nbsp;s end to end</strong>, well inside the async expectation set in &sect;2.2.</li>
+  <li>The GPU box is a single point of failure and that is an accepted, documented trade (<code>R-10</code>). The queue makes it a delay rather than an outage.</li>
+</ul>
+
+<h3><span class="n">11.6</span>Observability</h3>
+<div class="tw">
+<table>
+<caption>What is watched in production, and what each signal means</caption>
+<thead><tr><th>Signal</th><th>Why it matters</th></tr></thead>
+<tbody>
+<tr><td>Per-stage latency (p50 / p95)</td><td>Capacity planning on one GPU</td></tr>
+<tr><td>Station compliance rate (L0)</td><td>Conditions every accuracy claim in the system</td></tr>
+<tr><td><strong>Abstention rate per cue, over time</strong></td><td><strong>The distribution-shift alarm.</strong> A jump means the incoming population has moved away from the calibration population &mdash; and it fires before accuracy visibly degrades (&sect;7.3)</td></tr>
+<tr><td>Cue fire rate per cue</td><td>A rate near 0 or near 1 usually means a broken threshold, not a real change in user behaviour</td></tr>
+<tr><td>Verifier rejection rate</td><td>Prompt or corpus regression</td></tr>
+<tr><td>Template fallback rate</td><td>Silent quality degradation in the coaching layer</td></tr>
+<tr><td>Weekly auto-generated eval report</td><td>Trend, not snapshot. Emailed to yourself; it is the habit that keeps the project honest between milestones</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3><span class="n">11.7</span>Testing</h3>
+<ul>
+  <li><strong>Unit tests on synthetic signals.</strong> Generate joint-angle traces with known properties &mdash; a clean 8-rep set, one with a 22&deg; torso swing on reps 7&ndash;9, one with progressively shortening ROM &mdash; and assert the cue fires with the expected severity. Fast, deterministic, and it catches real bugs long before any labeled clip exists. This is the highest-value testing in the project and it can be written on day one.</li>
+  <li><strong>Golden-file tests</strong> on a fixed set of real clips; the committed <code>CueResult</code> JSON is the expectation.</li>
+  <li><strong>Contract tests</strong> on the API schemas, shared with the frontend.</li>
+  <li><strong>Property tests:</strong> reversing a clip inverts phase labels; scaling frame size leaves normalised features invariant; adding synthetic blur monotonically decreases <em>Q</em>.</li>
+  <li><strong>Load test</strong> at 10&times; expected peak, to find the queue depth at which the honest-wait message needs to appear.</li>
+</ul>
+</section>
+
+<section id="s12">
+<h2><span class="n">12</span><span>Risk register</span></h2>
+
+<div class="item risk"><span class="tag">R-01</span><div><span class="t">Data collection stalls &mdash; the project&rsquo;s most likely cause of death</span><p>Labeling is the dominant cost and it is unglamorous. <strong>Mitigation:</strong> start with SET cues, which are single-frame and collectible solo; build the labeling tool before the corpus so labeling is never blocked on tooling; run collection as scheduled org sessions rather than as an open-ended ask; use active learning (&sect;9.3) to make each label count 3&ndash;5&times;.</p></div></div>
+
+<div class="item risk"><span class="tag">R-02</span><div><span class="t">Inter-rater agreement fails on subtle cues</span><p><strong>Mitigation:</strong> this is anticipated, gated (&sect;3.5), and pre-registered (&sect;7.6). A cue retired for &alpha; &lt; 0.67 is <em>a reported result about the contestedness of the domain</em>, not a failure. Frame it that way from the start and it stops being a threat.</p></div></div>
+
+<div class="item risk"><span class="tag">R-03</span><div><span class="t">Equipment detection needs its own annotation effort</span><p>&sect;5.4 depends on a detector that needs its own labels. <strong>Mitigation:</strong> boxes and keypoints on static frames are roughly 10&times; faster to label than form judgments, ~200&ndash;300 frames per machine class suffices, and a single machine class unlocks the anchor for every cue on that exercise.</p></div></div>
+
+<div class="item risk"><span class="tag">R-04</span><div><span class="t">Pose estimation degrades on baggy clothing and dim gyms</span><p><strong>Mitigation:</strong> this is a measured slice (&sect;10.4) and an abstention trigger, not a surprise. The architecture converts it from a hidden accuracy problem into a visible coverage number &mdash; which is the entire thesis working as designed.</p></div></div>
+
+<div class="item risk"><span class="tag">R-05</span><div><span class="t">IRB lead time blocks publication</span><p>Human-subjects video usually needs a determination even when the outcome is an exemption, and determinations take weeks. <strong>Mitigation:</strong> file early, before collection. This is the highest ratio of consequence to effort in the register &mdash; a single form, submitted late, can cost an entire submission cycle.</p></div></div>
+
+<div class="item risk"><span class="tag">R-06</span><div><span class="t">Users ignore guided capture</span><p><strong>Mitigation:</strong> L0 measures compliance rather than assuming it. If compliance is poor, that is a product finding, and the free-form robustness study becomes a results section instead of a liability.</p></div></div>
+
+<div class="item risk"><span class="tag">R-07</span><div><span class="t">Scope &mdash; 12 exercises, 56 cues</span><p><strong>Mitigation:</strong> the tier system. One class-agnostic implementation covers all twelve at Tier B; only Tier A cues carry per-exercise labeling cost. Marginal cost of exercise thirteen is near zero.</p></div></div>
+
+<div class="item risk"><span class="tag">R-08</span><div><span class="t">LLM hallucination reaches a user</span><p><strong>Mitigation:</strong> the verifier (&sect;8.2) is deterministic and runs before display; template fallback guarantees a correct report even on total generation failure.</p></div></div>
+
+<div class="item risk"><span class="tag">R-09</span><div><span class="t">Recruiting calendar outruns the build</span><p>Application windows do not wait for milestones. <strong>Mitigation:</strong> &sect;13 is ordered so every milestone boundary leaves a defensible artifact &mdash; a repo, a number, a deployed URL &mdash; that can go on a resume as of that day.</p></div></div>
+
+<div class="item risk"><span class="tag">R-10</span><div><span class="t">Single GPU is a single point of failure</span><p><strong>Accepted.</strong> The queue converts an outage into a delay. Documented rather than engineered around; over-engineering this would be a worse use of hours than almost anything else in the spec.</p></div></div>
+
+<div class="item risk"><span class="tag">R-11</span><div><span class="t">A privacy incident involving gym video</span><p>The most serious non-technical risk in the project. <strong>Mitigation:</strong> &sect;9.2 in full, including a <em>tested</em> deletion path, bystander blurring on by default, and no media in the repository under any circumstances.</p></div></div>
+
+<div class="item risk"><span class="tag">R-12</span><div><span class="t">The abstention result turns out to be uninteresting</span><p>If informed abstention does not beat the random control (SC-4), the central claim fails. <strong>Mitigation:</strong> the <em>O</em> gate is computed from geometry and is close to a guaranteed win where stations genuinely differ &mdash; which is why <code>IP-02</code> is deliberately in the registry. Even in the worst case, an honest negative result plus a working product is a real project; it is just a different paper.</p></div></div>
+</section>
+
+<section id="s13">
+<h2><span class="n">13</span><span>Milestones</span></h2>
+
+<p>Ordered by dependency, with an exit criterion each. Sequenced so that stopping at any boundary still leaves something real (<code>R-09</code>).</p>
+
+<div class="tw">
+<table>
+<caption>Milestone sequence &mdash; each exit criterion is testable</caption>
+<thead><tr><th>ID</th><th>Milestone</th><th>Exit criterion</th></tr></thead>
+<tbody>
+<tr><td class="id">M0</td><td>Spec ratified, repo skeleton, eval harness stub, CI running</td><td><code>make eval</code> runs end-to-end on 3 hand-placed clips and emits a results JSON</td></tr>
+<tr><td class="id">M1</td><td>Ingest &rarr; pose &rarr; segmentation; class-agnostic metrics on all 12</td><td>Rep-count MAE &lt; 0.5 and off-by-one accuracy &gt; 0.90 on 100 hand-annotated clips</td></tr>
+<tr><td class="id">M2</td><td>Labeling tool, rubrics v1, rater onboarding with gold items</td><td>&alpha; &ge; 0.67 on a 30-clip dry run for 3 candidate cues</td></tr>
+<tr><td class="id">M3</td><td>Collection wave 1 &mdash; first 3 exercises</td><td>&ge; 150 clips and &ge; 25 subjects each; splits frozen and leakage check green</td></tr>
+<tr><td class="id">M4</td><td>Cue engine v1, rules only; full L3 evaluation</td><td>Per-cue F1 with bootstrap CIs committed to <code>eval/results/</code></td></tr>
+<tr><td class="id">M5</td><td>Equipment anchoring and observability scoring</td><td>Station classification accuracy reported; <em>O</em> populated for every cue</td></tr>
+<tr><td class="id">M6</td><td>Calibration, conformal, abstention gate</td><td>Coverage@P=0.85 per cue; <strong>informed beats random abstention, p &lt; 0.05</strong></td></tr>
+<tr><td class="id">M7</td><td>Coaching layer, corpus, verifier, L5 evaluation</td><td>Grounding &ge; 0.95, leakage = 0, rubric mean &ge; 4.0, judge correlation reported</td></tr>
+<tr><td class="id">M8</td><td>Deployed product with guided capture</td><td>&ge; 50 users, &ge; 500 real sets, L0 compliance measured and published</td></tr>
+<tr><td class="id">M9</td><td>Learned detectors where they earn their place</td><td>Each replacement passes McNemar with BH correction; rules retained elsewhere</td></tr>
+<tr><td class="id">M10</td><td>Slice and OOD analysis, dataset card, paper draft</td><td>Gym-disjoint numbers reported; coverage-compensation property tested (&sect;10.4)</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="note">
+<p class="h">The ordering is not arbitrary</p>
+<p>M1 delivers Tier B across all twelve exercises before a single form label exists &mdash; a genuinely useful product with no annotation dependency, which de-risks <code>R-01</code> by giving the org a reason to engage before you ask them for anything. M6 is the intellectual centre and should not be reached before M4 and M5 supply the inputs it gates on. M8 is deliberately late: deploying before the numbers exist means shipping the exact overconfidence this project was built to criticise.</p>
+</div>
+</section>
+
+<section id="s14">
+<h2><span class="n">14</span><span>Artifact map</span></h2>
+
+<p>What each milestone produces beyond code. Recruiting is a real constraint, and a milestone that generates no external artifact is a milestone that is invisible from outside the repository.</p>
+
+<div class="tw">
+<table>
+<caption>Milestone &rarr; external artifact</caption>
+<thead><tr><th>Milestone</th><th>Resume-legible artifact</th><th>The interview question it answers</th></tr></thead>
+<tbody>
+<tr><td class="id">M1</td><td>Public repo, working pipeline, rep-count MAE on a hand-annotated set</td><td>&ldquo;How do you know your segmentation is right?&rdquo;</td></tr>
+<tr><td class="id">M2&ndash;M3</td><td>Labeling protocol, &alpha; statistics, dataset card</td><td>&ldquo;Where did your labels come from and how good are they?&rdquo; &mdash; the question most candidates cannot answer</td></tr>
+<tr><td class="id">M4</td><td>Per-cue F1 with confidence intervals, subject-disjoint</td><td>&ldquo;Why should I believe that number?&rdquo;</td></tr>
+<tr><td class="id">M5</td><td>Equipment-anchored camera-pose estimation &mdash; the novel component</td><td>&ldquo;What did you build that didn&rsquo;t exist?&rdquo;</td></tr>
+<tr><td class="id">M6</td><td>Risk&ndash;coverage curves with both controls; the headline coverage@precision number</td><td>&ldquo;What happens when your model is wrong?&rdquo; &mdash; the question that separates senior thinking from junior</td></tr>
+<tr><td class="id">M7</td><td>Eval harness for generated text: grounding, leakage, validated judge</td><td>&ldquo;How do you evaluate an LLM feature?&rdquo; &mdash; asked in essentially every AI/ML interview this cycle</td></tr>
+<tr><td class="id">M8</td><td>Deployed URL, real users, measured capture compliance</td><td>&ldquo;Did anyone actually use it?&rdquo;</td></tr>
+<tr><td class="id">M10</td><td>Workshop paper draft; slice and OOD analysis</td><td>&ldquo;Where does it fail, and who does it fail for?&rdquo;</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="note ok">
+<p class="h">The one sentence this spec exists to make true</p>
+<p>&ldquo;I built a monocular video analysis system for resistance training, hand-labeled a benchmark with multi-rater agreement statistics, and added a calibrated abstention layer that declines to judge when camera geometry makes a cue unresolvable &mdash; at 89% precision it covers 61% of submissions, and it beats a matched random-abstention control. The cue it refuses most is the one I originally set out to build.&rdquo;</p>
+<p>That last clause is the one that will be remembered. It says you ran the experiment that could have embarrassed you, and reported what it found.</p>
+</div>
+</section>
+
+<section id="s15">
+<h2><span class="n">15</span><span>Open questions</span></h2>
+
+<div class="item q"><span class="tag">Q-01</span><div><span class="t">Which three exercises enter Tier A first?</span><p>The registry pre-registers expectations for all twelve, but collection order is unresolved. Recommendation: lat pulldown (large-signal, high-prevalence), preacher curl (cleanest geometry), incline press (the expected failure that makes &sect;7 testable). Deliberately including the one you expect to lose is what makes the abstention result falsifiable.</p></div></div>
+
+<div class="item q"><span class="tag">Q-02</span><div><span class="t">Is per-user threshold personalisation in scope?</span><p>&ldquo;Full ROM&rdquo; is partly anthropometric. Personalising thresholds to an individual&rsquo;s observed maximum would improve relevance but breaks the population-level evaluation and complicates every metric in &sect;10. Recommendation: out of scope for v1; record the data that would enable it later.</p></div></div>
+
+<div class="item q"><span class="tag">Q-03</span><div><span class="t">How is exercise identity established?</span><p>User selection is reliable but adds friction; automatic classification is a solved-ish problem with public recognition datasets available. Recommendation: user selects, classifier verifies and warns on mismatch. Cheap, and the mismatch rate is a useful signal in its own right.</p></div></div>
+
+<div class="item q"><span class="tag">Q-04</span><div><span class="t">Should the multi-view validation study happen?</span><p>Filming a subset simultaneously from two stations would let you measure how much signal a single station actually loses, converting the <em>O</em> gate from a principled heuristic into a calibrated one. Genuinely the strongest available upgrade to the research claim. Requires two phones and a clapper sync.</p></div></div>
+
+<div class="item q"><span class="tag">Q-05</span><div><span class="t">What is the severity scale grounded in?</span><p>Severity is currently a normalised distance past threshold. Whether that corresponds to anything a lifter cares about is untested. Options: rater-assigned severity labels, or drop the scale to a three-level ordinal. Recommendation: ordinal until there is evidence for anything finer &mdash; a continuous number nobody validated is false precision.</p></div></div>
+
+<div class="item q"><span class="tag">Q-06</span><div><span class="t">How are contested cues presented?</span><p>Some cues in the registry describe genuinely contested practice rather than errors &mdash; lat pulldown layback, for instance, is a legitimate technique variation at moderate angles. Recommendation: an explicit <em>style</em> classification distinct from <em>error</em>, with the evidence-strength tag from &sect;8.3 surfaced. Calling a stylistic choice a mistake is its own kind of overconfidence, and this document has no standing to commit it.</p></div></div>
+
+<div class="item q"><span class="tag">Q-07</span><div><span class="t">Pec fly has no single station that serves it</span><p>Hand separation, the rep signal, is transverse-plane and needs S-FRONT. Its two Tier A candidates, PF-03 and PF-04, need S-LAT. The registry prescribes S-FRONT so Tier B metrics always work. Options: two submissions per set, or deriving a lateral rep signal from forearm foreshortening. Measure before choosing.</p></div></div>
+
+<div class="item q"><span class="tag">Q-08</span><div><span class="t">What is a keypoint score worth?</span><p>RTMPose scores are not probabilities. The 0.3 floor used for gap filling and tracking, and <em>Q</em>'s confidence term, were set without evidence. The L1 study should fit the relationship between score and actual keypoint error on hand-annotated frames, and replace the floor with a calibrated one.</p></div></div>
+
+<div class="item q"><span class="tag">Q-09</span><div><span class="t">When does a short final rep count as a rep?</span><p>After F-02, a cycle counts once its prominence clears 12% of the set's range and eight times the clip's noise. That is a signal-processing threshold standing in for a product definition. Lifters count grinding partials inconsistently; the rubric for rep boundaries at M2 should settle it, and the threshold should follow.</p></div></div>
+
+<p class="foot">Plumbline &mdash; Draft v0.2, 2026-09-13. Every claim in this document about published results is sourced from Fitness-AQA (ECCV 2022), the RepNet evaluation literature, and monocular pose-estimation accuracy studies; every claim about <em>this system</em> is a prediction until <code>make eval</code> says otherwise. Update the decision log before you update the code.</p>
+</section>
+</main>
+</div>

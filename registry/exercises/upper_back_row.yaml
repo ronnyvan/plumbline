@@ -1,0 +1,17 @@
+id: upper_back_row
+name: Upper-back row
+aliases: [high row, rear delt row, wide-grip row, upper back row]
+equipment_class: cable_or_machine_row
+dominant_plane: sagittal
+primary_joints: [elbow, shoulder]
+rep_signal: elbow_angle_mean
+rep_phase: {concentric: decreasing, eccentric: increasing}
+stations:
+  required: S-LAT
+  optional: [S-REAR]                  # unlocks UR-03
+anchors: [chest_pad, seat_pad, handles, cable_origin]
+rom_reference:
+  joint: elbow
+  full_extension_deg: null
+  normalisation: torso_length
+cues: [UR-01, UR-02, UR-03, UR-04]

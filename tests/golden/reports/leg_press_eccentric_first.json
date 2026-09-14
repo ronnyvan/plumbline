@@ -1,0 +1,243 @@
+{
+ "abstained_cues": [],
+ "coaching": null,
+ "diagnostics": {
+  "cue_results": [],
+  "segmentation": {
+   "confidence": 0.8682,
+   "noise_sigma": 0.1746,
+   "noise_to_range": 0.00218,
+   "orientation_confident": true,
+   "partial_reps": 0,
+   "reason": null,
+   "reps": [
+    {
+     "end": 147,
+     "first_phase": "eccentric",
+     "index": 0,
+     "start": 46,
+     "turn_arrive": 102,
+     "turn_leave": 112
+    },
+    {
+     "end": 270,
+     "first_phase": "eccentric",
+     "index": 1,
+     "start": 163,
+     "turn_arrive": 222,
+     "turn_leave": 232
+    },
+    {
+     "end": 392,
+     "first_phase": "eccentric",
+     "index": 2,
+     "start": 286,
+     "turn_arrive": 346,
+     "turn_leave": 356
+    },
+    {
+     "end": 510,
+     "first_phase": "eccentric",
+     "index": 3,
+     "start": 406,
+     "turn_arrive": 465,
+     "turn_leave": 475
+    },
+    {
+     "end": 628,
+     "first_phase": "eccentric",
+     "index": 4,
+     "start": 525,
+     "turn_arrive": 583,
+     "turn_leave": 594
+    },
+    {
+     "end": 749,
+     "first_phase": "eccentric",
+     "index": 5,
+     "start": 644,
+     "turn_arrive": 706,
+     "turn_leave": 714
+    }
+   ],
+   "selfsim": {
+    "agrees": true,
+    "count": 6,
+    "period_s": 4.067,
+    "strength": 0.939
+   },
+   "signal": "knee_angle_mean",
+   "start_level": "high"
+  },
+  "station": {
+   "requested": "S-LAT",
+   "verification": "unavailable until equipment anchoring (M5)",
+   "verified": false
+  },
+  "subject_selection": {
+   "ambiguous": false,
+   "candidates": [
+    {
+     "anchor_proximity": 0.0,
+     "area": 0.1848,
+     "centrality": 0.9458,
+     "detections": 794,
+     "motion": 0.0082,
+     "persistence": 1.0,
+     "score": 1.0
+    }
+   ],
+   "reason": null
+  }
+ },
+ "exercise": {
+  "id": "leg_press_quad_bias",
+  "name": "Leg press (quad bias)",
+  "notes": [
+   "Form-error detection isn't validated for this exercise yet. Showing rep quality metrics only.",
+   "These rep metrics haven't yet been checked against hand-annotated clips, so treat them as provisional."
+  ],
+  "tier": "B",
+  "tier_validated": false
+ },
+ "fired_cues": [],
+ "manifest_hash": "f4aca099535aee66582e1e87712da5c4e0a7da1d1eb0d6c141f5c99aa87f5c02",
+ "not_assessed": [
+  {
+   "cue_id": "LQ-01",
+   "expected_tier": "A",
+   "reason": "detector_not_built"
+  },
+  {
+   "cue_id": "LQ-02",
+   "expected_tier": "B",
+   "reason": "detector_not_built"
+  },
+  {
+   "cue_id": "LQ-03",
+   "expected_tier": "A",
+   "reason": "detector_not_built"
+  },
+  {
+   "cue_id": "LQ-04",
+   "expected_tier": "A",
+   "reason": "detector_not_built"
+  }
+ ],
+ "schema_version": 1,
+ "set_summary": {
+  "asymmetry_rom": {
+   "available": false,
+   "reason": "requires_frontal_or_rear_station",
+   "units": "ratio",
+   "value": null
+  },
+  "fatigue_slope_rom": {
+   "available": true,
+   "reason": null,
+   "units": "deg/rep",
+   "value": -0.1055
+  },
+  "fatigue_slope_rom_rel": {
+   "available": true,
+   "reason": null,
+   "units": "fraction/rep",
+   "value": -0.0013
+  },
+  "fatigue_slope_velocity": {
+   "available": true,
+   "reason": null,
+   "units": "deg/s per rep",
+   "value": 0.6013
+  },
+  "partial_reps": {
+   "available": true,
+   "reason": null,
+   "units": "count",
+   "value": 0
+  },
+  "reps": {
+   "available": true,
+   "reason": null,
+   "units": "count",
+   "value": 6
+  },
+  "rom_cv": {
+   "available": true,
+   "reason": null,
+   "units": "ratio",
+   "value": 0.004
+  },
+  "rom_per_rep": {
+   "available": true,
+   "reason": null,
+   "units": "deg",
+   "value": [
+    80.6598,
+    80.1675,
+    80.3895,
+    80.1665,
+    79.6096,
+    80.3005
+   ]
+  },
+  "tempo": {
+   "available": true,
+   "reason": null,
+   "units": "s",
+   "value": [
+    {
+     "concentric_s": 1.167,
+     "eccentric_s": 1.867,
+     "first_phase": "eccentric",
+     "start_pause_s": 0.533,
+     "turnaround_pause_s": 0.333
+    },
+    {
+     "concentric_s": 1.267,
+     "eccentric_s": 1.967,
+     "first_phase": "eccentric",
+     "start_pause_s": 0.533,
+     "turnaround_pause_s": 0.333
+    },
+    {
+     "concentric_s": 1.2,
+     "eccentric_s": 2.0,
+     "first_phase": "eccentric",
+     "start_pause_s": 0.467,
+     "turnaround_pause_s": 0.333
+    },
+    {
+     "concentric_s": 1.167,
+     "eccentric_s": 1.967,
+     "first_phase": "eccentric",
+     "start_pause_s": 0.5,
+     "turnaround_pause_s": 0.333
+    },
+    {
+     "concentric_s": 1.133,
+     "eccentric_s": 1.933,
+     "first_phase": "eccentric",
+     "start_pause_s": 0.533,
+     "turnaround_pause_s": 0.367
+    },
+    {
+     "concentric_s": 1.167,
+     "eccentric_s": 2.067,
+     "first_phase": "eccentric",
+     "start_pause_s": null,
+     "turnaround_pause_s": 0.267
+    }
+   ]
+  },
+  "tut": {
+   "available": true,
+   "reason": null,
+   "units": "s",
+   "value": 18.9
+  }
+ },
+ "status": "analysed",
+ "submission_abstention": null,
+ "trend": null
+}

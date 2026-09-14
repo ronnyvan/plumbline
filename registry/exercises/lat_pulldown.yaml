@@ -1,0 +1,17 @@
+id: lat_pulldown
+name: Lat pulldown
+aliases: [lat pull down, pulldown, cable pulldown]
+equipment_class: selectorised_stack
+dominant_plane: sagittal
+primary_joints: [elbow, shoulder, spine_thoracic]
+rep_signal: elbow_angle_mean          # drives segmentation (§5.5)
+rep_phase: {concentric: decreasing, eccentric: increasing}
+stations:
+  required: S-LAT
+  optional: [S-FRONT]                 # unlocks LP-06, LP-07
+anchors: [seat_pad, thigh_pad, stack_top, cable_origin]
+rom_reference:
+  joint: elbow
+  full_extension_deg: 168             # §3.1 population reference, not per-user; unvalidated
+  normalisation: torso_length
+cues: [LP-01, LP-02, LP-03, LP-04, LP-05, LP-06, LP-07]

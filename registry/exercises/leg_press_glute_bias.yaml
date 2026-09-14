@@ -1,0 +1,18 @@
+id: leg_press_glute_bias
+name: Leg press (glute bias)
+aliases: [glute leg press, high wide stance leg press]
+equipment_class: sled_leg_press
+dominant_plane: sagittal
+primary_joints: [hip, knee]
+# Glute bias is defined by hip flexion depth (LG-02), so the hip drives segmentation.
+rep_signal: hip_angle_mean
+rep_phase: {concentric: increasing, eccentric: decreasing}
+stations:
+  required: S-LAT
+  optional: [S-FRONT]                 # LG-03 is pre-registered to abstain
+anchors: [sled, platform, backrest]
+rom_reference:
+  joint: hip
+  full_extension_deg: null
+  normalisation: torso_length
+cues: [LG-01, LG-02, LG-03]

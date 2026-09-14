@@ -1,0 +1,17 @@
+id: tricep_pushdown
+name: Tricep pushdown
+aliases: [pushdown, cable pushdown, rope pushdown]
+equipment_class: cable_stack
+dominant_plane: sagittal
+primary_joints: [elbow]
+rep_signal: elbow_angle_mean
+rep_phase: {concentric: increasing, eccentric: decreasing}
+stations:
+  required: S-LAT
+  optional: []
+anchors: [cable_origin, stack_top, handle]
+rom_reference:
+  joint: elbow
+  full_extension_deg: null
+  normalisation: torso_length
+cues: [TP-01, TP-02, TP-03, TP-04]

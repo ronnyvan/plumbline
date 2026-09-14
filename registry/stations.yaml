@@ -1,0 +1,44 @@
+# Camera stations — spec §3.3.
+# Azimuth is measured from the subject's facing direction.
+# `placement` is user-facing reshoot copy (§7.5): plain language, no station codes.
+
+stations:
+  - id: S-LAT
+    azimuth_deg: 90
+    elevation_deg: 0
+    lens_height: mid-torso
+    distance_m: [2.5, 3.5]
+    resolves: "Sagittal: flexion/extension, ROM, torso angle, bar path"
+    placement: "Put the phone directly to your side, level with your mid-torso, about 3 metres away."
+
+  - id: S-FRONT
+    azimuth_deg: 0
+    elevation_deg: 0
+    lens_height: mid-torso
+    distance_m: [2.0, 3.0]
+    resolves: "Frontal: left/right symmetry, grip width, knee tracking"
+    placement: "Put the phone directly in front of you, level with your mid-torso, about 2.5 metres away."
+
+  - id: S-OBL45
+    azimuth_deg: 45
+    elevation_deg: 0
+    lens_height: mid-torso
+    distance_m: [2.5, 3.5]
+    resolves: "Partial transverse: humeral abduction with reduced but non-zero signal"
+    placement: "Put the phone halfway between your front and your side, level with your mid-torso, about 3 metres away."
+
+  - id: S-REAR
+    azimuth_deg: 180
+    elevation_deg: 0
+    lens_height: mid-torso
+    distance_m: [2.0, 3.0]
+    resolves: "Scapular motion, rear-delt work, lat spread"
+    placement: "Put the phone directly behind you, level with your mid-torso, about 2.5 metres away."
+
+  - id: S-HIGH
+    azimuth_deg: 90
+    elevation_deg: 30
+    lens_height: above head
+    distance_m: [2.0, 3.0]
+    resolves: "Transverse plane; the only station that genuinely resolves flare, and rarely practical"
+    placement: "Mount the phone above head height to your side, tilted down about 30 degrees, about 2.5 metres away."

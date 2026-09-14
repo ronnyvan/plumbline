@@ -1,0 +1,19 @@
+id: overhead_tricep_extension
+name: Overhead tricep extension
+aliases: [overhead extension, french press, cable overhead extension]
+equipment_class: cable_or_dumbbell
+dominant_plane: sagittal
+primary_joints: [elbow]
+rep_signal: elbow_angle_mean
+# Dumbbell variants usually start extended (eccentric first); cable variants often
+# start stretched. Phase order is inferred, not assumed (D-16).
+rep_phase: {concentric: increasing, eccentric: decreasing}
+stations:
+  required: S-LAT
+  optional: []
+anchors: [cable_origin, handle, seat_pad]
+rom_reference:
+  joint: elbow
+  full_extension_deg: null
+  normalisation: torso_length
+cues: [TE-01, TE-02, TE-03]

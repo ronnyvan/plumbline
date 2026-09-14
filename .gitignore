@@ -1,0 +1,21 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+.hypothesis/
+
+# Content-addressed stage cache (§4.2). Reproducible; never committed.
+artifacts/
+
+# §9.2 / §11.2 — media never enters the repository. data/ holds manifests and
+# labels only; the clips themselves stay on the machine that recorded them.
+*.mp4
+*.mov
+*.m4v
+*.avi
+*.mkv
+*.webm
+*.report.json
+
+# eval/results/ IS committed (§10.6). Do not add it here.

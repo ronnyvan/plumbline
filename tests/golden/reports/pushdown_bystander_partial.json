@@ -1,0 +1,227 @@
+{
+ "abstained_cues": [],
+ "coaching": null,
+ "diagnostics": {
+  "cue_results": [],
+  "segmentation": {
+   "confidence": 0.606,
+   "noise_sigma": 0.2535,
+   "noise_to_range": 0.00253,
+   "orientation_confident": false,
+   "partial_reps": 1,
+   "reason": null,
+   "reps": [
+    {
+     "end": 188,
+     "first_phase": "concentric",
+     "index": 0,
+     "start": 86,
+     "turn_arrive": 122,
+     "turn_leave": 130
+    },
+    {
+     "end": 307,
+     "first_phase": "concentric",
+     "index": 1,
+     "start": 203,
+     "turn_arrive": 240,
+     "turn_leave": 250
+    },
+    {
+     "end": 425,
+     "first_phase": "concentric",
+     "index": 2,
+     "start": 323,
+     "turn_arrive": 358,
+     "turn_leave": 369
+    },
+    {
+     "end": 548,
+     "first_phase": "concentric",
+     "index": 3,
+     "start": 441,
+     "turn_arrive": 478,
+     "turn_leave": 487
+    },
+    {
+     "end": 669,
+     "first_phase": "concentric",
+     "index": 4,
+     "start": 563,
+     "turn_arrive": 598,
+     "turn_leave": 606
+    },
+    {
+     "end": 787,
+     "first_phase": "concentric",
+     "index": 5,
+     "start": 684,
+     "turn_arrive": 720,
+     "turn_leave": 732
+    },
+    {
+     "end": 905,
+     "first_phase": "concentric",
+     "index": 6,
+     "start": 802,
+     "turn_arrive": 838,
+     "turn_leave": 850
+    },
+    {
+     "end": 1027,
+     "first_phase": "concentric",
+     "index": 7,
+     "start": 921,
+     "turn_arrive": 960,
+     "turn_leave": 967
+    }
+   ],
+   "selfsim": {
+    "agrees": true,
+    "count": 8,
+    "period_s": 4.0,
+    "strength": 0.964
+   },
+   "signal": "elbow_angle_mean",
+   "start_level": "low"
+  },
+  "station": {
+   "requested": "S-LAT",
+   "verification": "unavailable until equipment anchoring (M5)",
+   "verified": false
+  },
+  "subject_selection": {
+   "ambiguous": false,
+   "candidates": [
+    {
+     "anchor_proximity": 0.0,
+     "area": 0.1685,
+     "centrality": 0.8633,
+     "detections": 1072,
+     "motion": 0.0025,
+     "persistence": 1.0,
+     "score": 0.8469
+    },
+    {
+     "anchor_proximity": 0.0,
+     "area": 0.0143,
+     "centrality": 0.6907,
+     "detections": 428,
+     "motion": 0.0065,
+     "persistence": 0.3993,
+     "score": 0.551
+    }
+   ],
+   "reason": null
+  }
+ },
+ "exercise": {
+  "id": "tricep_pushdown",
+  "name": "Tricep pushdown",
+  "notes": [
+   "Form-error detection isn't validated for this exercise yet. Showing rep quality metrics only.",
+   "These rep metrics haven't yet been checked against hand-annotated clips, so treat them as provisional."
+  ],
+  "tier": "B",
+  "tier_validated": false
+ },
+ "fired_cues": [],
+ "manifest_hash": "f4aca099535aee66582e1e87712da5c4e0a7da1d1eb0d6c141f5c99aa87f5c02",
+ "not_assessed": [
+  {
+   "cue_id": "TP-01",
+   "expected_tier": "A",
+   "reason": "detector_not_built"
+  },
+  {
+   "cue_id": "TP-02",
+   "expected_tier": "A",
+   "reason": "detector_not_built"
+  },
+  {
+   "cue_id": "TP-03",
+   "expected_tier": "A",
+   "reason": "detector_not_built"
+  },
+  {
+   "cue_id": "TP-04",
+   "expected_tier": "A",
+   "reason": "detector_not_built"
+  }
+ ],
+ "schema_version": 1,
+ "set_summary": {
+  "asymmetry_rom": {
+   "available": false,
+   "reason": "requires_frontal_or_rear_station",
+   "units": "ratio",
+   "value": null
+  },
+  "fatigue_slope_rom": {
+   "available": true,
+   "reason": null,
+   "units": "deg/rep",
+   "value": 0.0834
+  },
+  "fatigue_slope_rom_rel": {
+   "available": true,
+   "reason": null,
+   "units": "fraction/rep",
+   "value": 0.0008
+  },
+  "fatigue_slope_velocity": {
+   "available": false,
+   "reason": "set_start_ambiguous",
+   "units": "deg/s per rep",
+   "value": null
+  },
+  "partial_reps": {
+   "available": true,
+   "reason": null,
+   "units": "count",
+   "value": 1
+  },
+  "reps": {
+   "available": true,
+   "reason": null,
+   "units": "count",
+   "value": 8
+  },
+  "rom_cv": {
+   "available": true,
+   "reason": null,
+   "units": "ratio",
+   "value": 0.0036
+  },
+  "rom_per_rep": {
+   "available": true,
+   "reason": null,
+   "units": "deg",
+   "value": [
+    99.9193,
+    100.1198,
+    99.6585,
+    99.9901,
+    100.2235,
+    99.8523,
+    99.9178,
+    100.9475
+   ]
+  },
+  "tempo": {
+   "available": false,
+   "reason": "set_start_ambiguous",
+   "units": "s",
+   "value": null
+  },
+  "tut": {
+   "available": true,
+   "reason": null,
+   "units": "s",
+   "value": 25.2
+  }
+ },
+ "status": "analysed",
+ "submission_abstention": null,
+ "trend": null
+}

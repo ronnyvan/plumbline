@@ -1,0 +1,19 @@
+id: incline_press
+name: Incline chest press
+aliases: [incline press, incline chest press, incline machine press, incline dumbbell press]
+equipment_class: incline_press_machine
+dominant_plane: sagittal
+primary_joints: [elbow, shoulder]
+rep_signal: elbow_angle_mean
+rep_phase: {concentric: increasing, eccentric: decreasing}
+stations:
+  # S-LAT serves the most Tier A candidates (IP-06, IP-07) and IP-04.
+  # IP-01 needs S-OBL45; IP-02 is pre-registered to abstain from every practical station.
+  required: S-LAT
+  optional: [S-OBL45, S-FRONT, S-REAR, S-HIGH]
+anchors: [backrest, seat_pad, handles]
+rom_reference:
+  joint: elbow
+  full_extension_deg: null
+  normalisation: torso_length
+cues: [IP-01, IP-02, IP-03, IP-04, IP-05, IP-06, IP-07]

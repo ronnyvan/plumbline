@@ -1,0 +1,33 @@
+[project]
+name = "plumbline"
+version = "0.1.0"
+description = "Monocular form analysis that reports only what the camera can support. Spec: spec/plumbline.html"
+requires-python = ">=3.12"
+# Dependencies are pinned in requirements*.txt; see the Makefile.
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+extend-exclude = [".venv", "artifacts"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP"]
+ignore = ["E731"]
+
+[tool.ruff.lint.flake8-bugbear]
+# Frozen dataclasses: safe as argument defaults, which is what B008 guards against.
+extend-immutable-calls = [
+  "core.features.signals.FeatureConfig",
+  "core.ingest.video.IngestConfig",
+  "core.pipeline.PipelineConfig",
+  "core.pose.track.TrackConfig",
+  "core.segment.reps.SegmentConfig",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+markers = [
+  "pose: needs the RTMPose models, ONNX Runtime and a GPU (make test-pose)",
+]
+addopts = "-m 'not pose'"

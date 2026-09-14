@@ -1,0 +1,20 @@
+id: pec_fly
+name: Pec fly
+aliases: [pec deck, machine fly, cable fly, chest fly]
+equipment_class: pec_deck
+dominant_plane: transverse
+primary_joints: [shoulder]
+# Horizontal adduction is transverse-plane: hand separation only resolves from the front.
+rep_signal: wrist_separation
+rep_phase: {concentric: decreasing, eccentric: increasing}
+stations:
+  # Q-07: no single station serves both the rep signal (S-FRONT) and the Tier A
+  # candidates PF-03/PF-04 (S-LAT). S-FRONT is required so rep metrics always work.
+  required: S-FRONT
+  optional: [S-LAT, S-HIGH]
+anchors: [backrest, seat_pad, handles]
+rom_reference:
+  joint: shoulder
+  full_extension_deg: null
+  normalisation: torso_length
+cues: [PF-01, PF-02, PF-03, PF-04]

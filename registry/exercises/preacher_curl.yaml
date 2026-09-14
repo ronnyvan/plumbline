@@ -1,0 +1,17 @@
+id: preacher_curl
+name: Preacher curl
+aliases: [preacher, scott curl, preacher bench curl]
+equipment_class: preacher_bench
+dominant_plane: sagittal
+primary_joints: [elbow]
+rep_signal: elbow_angle_mean
+rep_phase: {concentric: decreasing, eccentric: increasing}
+stations:
+  required: S-LAT
+  optional: [S-FRONT]                 # unlocks PC-05
+anchors: [preacher_pad, seat_pad, handle]
+rom_reference:
+  joint: elbow
+  full_extension_deg: null            # unset until measured (§6.2)
+  normalisation: torso_length
+cues: [PC-01, PC-02, PC-03, PC-04, PC-05, PC-06]

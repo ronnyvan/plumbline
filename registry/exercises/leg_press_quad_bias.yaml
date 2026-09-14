@@ -1,0 +1,19 @@
+id: leg_press_quad_bias
+name: Leg press (quad bias)
+aliases: [leg press, quad leg press, narrow low stance leg press]
+equipment_class: sled_leg_press
+dominant_plane: sagittal
+primary_joints: [knee, hip]
+rep_signal: knee_angle_mean
+# Pushing the sled extends the knee. Sets usually begin at lockout, so the first
+# phase is eccentric — segmentation infers phase order from the signal (D-16).
+rep_phase: {concentric: increasing, eccentric: decreasing}
+stations:
+  required: S-LAT
+  optional: []
+anchors: [sled, platform, backrest]
+rom_reference:
+  joint: knee
+  full_extension_deg: null
+  normalisation: torso_length
+cues: [LQ-01, LQ-02, LQ-03, LQ-04]

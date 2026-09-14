@@ -1,0 +1,7 @@
+# Pose estimation (D-04, D-14). Install with `make install-pose`, not `pip install -r`:
+# rtmlib must be installed with --no-deps, because its declared dependencies pull in
+# opencv-python, opencv-contrib-python and CPU onnxruntime, which collide with
+# opencv-python-headless and onnxruntime-gpu.
+onnxruntime-gpu[cuda,cudnn]==1.30.0
+tqdm==4.70.1
+# rtmlib==0.0.16   (installed separately with --no-deps)

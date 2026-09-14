@@ -1,0 +1,109 @@
+# Cue registry — spec §3.4.
+#
+# Transcribed row-for-row from the §3.4 table. That table has 56 rows; the spec's
+# prose said 52. See spec erratum E-01.
+#
+# expected_tier is a PRE-REGISTERED prediction (D-12), not a measurement.
+# Do not edit it after data collection begins; being wrong is a finding.
+#
+# detector:
+#   planned      — no detector exists; the report lists it under "not assessed".
+#   implemented  — a rule detector exists (D-08). Its `params` are PROVISIONAL until
+#                  re-selected on a validation split at M4 (§6.2). A provisional
+#                  detector can never produce a user-visible claim (D-18).
+
+cues:
+  # --- Preacher curl ----------------------------------------------------------
+  - {id: PC-01, exercise: preacher_curl, name: "Incomplete extension at bottom", type: ROM, station: S-LAT, expected_tier: A}
+  - {id: PC-02, exercise: preacher_curl, name: "Torso/shoulder rise off pad (cheat)", type: CMP, station: S-LAT, expected_tier: A}
+  - {id: PC-03, exercise: preacher_curl, name: "Pad too low, armpit unseated", type: SET, station: S-LAT, expected_tier: A}
+  - {id: PC-04, exercise: preacher_curl, name: "Eccentric drop / tempo collapse", type: TMP, station: any, expected_tier: A}
+  - {id: PC-05, exercise: preacher_curl, name: "L/R ROM asymmetry (unilateral only)", type: SYM, station: S-FRONT, expected_tier: B}
+  - {id: PC-06, exercise: preacher_curl, name: "Wrist flexion drift", type: KIN, station: S-LAT, expected_tier: abstain}
+
+  # --- Incline press ----------------------------------------------------------
+  - {id: IP-01, exercise: incline_press, name: "ROM depth at bottom", type: ROM, station: S-OBL45, expected_tier: B}
+  - {id: IP-02, exercise: incline_press, name: "Elbow flare / humeral abduction", type: KIN, station: S-HIGH, expected_tier: abstain}
+  - {id: IP-03, exercise: incline_press, name: "L/R lockout timing asymmetry", type: SYM, station: S-FRONT, expected_tier: B}
+  - {id: IP-04, exercise: incline_press, name: "Handle path deviation", type: KIN, station: S-LAT, expected_tier: B}
+  - {id: IP-05, exercise: incline_press, name: "Scapular retraction loss", type: KIN, station: S-REAR, expected_tier: abstain}
+  - {id: IP-06, exercise: incline_press, name: "Backrest angle setting", type: SET, station: S-LAT, expected_tier: A}
+  - {id: IP-07, exercise: incline_press, name: "Lockout bounce / tempo", type: TMP, station: any, expected_tier: A}
+
+  # --- Pec fly ----------------------------------------------------------------
+  - {id: PF-01, exercise: pec_fly, name: "Elbow angle drift (turning fly into press)", type: KIN, station: S-HIGH, expected_tier: abstain}
+  - {id: PF-02, exercise: pec_fly, name: "Incomplete stretch at end range", type: ROM, station: S-FRONT, expected_tier: B}
+  - {id: PF-03, exercise: pec_fly, name: "Seat height vs handle path", type: SET, station: S-LAT, expected_tier: A}
+  - {id: PF-04, exercise: pec_fly, name: "Torso rise off pad", type: CMP, station: S-LAT, expected_tier: A}
+
+  # --- Chest-supported row ----------------------------------------------------
+  - {id: CR-01, exercise: chest_supported_row, name: "Chest leaving pad", type: CMP, station: S-LAT, expected_tier: A}
+  - {id: CR-02, exercise: chest_supported_row, name: "Incomplete stretch at front", type: ROM, station: S-LAT, expected_tier: A}
+  - {id: CR-03, exercise: chest_supported_row, name: "Short pull at back", type: ROM, station: S-LAT, expected_tier: A}
+  - {id: CR-04, exercise: chest_supported_row, name: "L/R pull asymmetry", type: SYM, station: S-REAR, expected_tier: B}
+  - {id: CR-05, exercise: chest_supported_row, name: "Pad height setting", type: SET, station: S-LAT, expected_tier: A}
+
+  # --- Lat pulldown -----------------------------------------------------------
+  - id: LP-01
+    exercise: lat_pulldown
+    name: "Torso swing / momentum"
+    type: CMP
+    station: S-LAT
+    expected_tier: A
+    detector: implemented
+    params:
+      provisional: true
+      source: "§8.1 illustrative threshold; must be re-selected on a validation split at M4 (§6.2)"
+      threshold_deg: 15.0
+      severity_span_deg: 15.0
+      # D-20: fire on the k-th largest per-rep amplitude, k = max(min_reps, ceil(min_reps_frac * n)).
+      min_reps: 2
+      min_reps_frac: 0.25
+      quality_threshold: 0.5
+  - {id: LP-02, exercise: lat_pulldown, name: "Incomplete top ROM", type: ROM, station: S-LAT, expected_tier: A}
+  - {id: LP-03, exercise: lat_pulldown, name: "Short bottom ROM", type: ROM, station: S-LAT, expected_tier: A}
+  - {id: LP-04, exercise: lat_pulldown, name: "Excessive mean layback", type: KIN, station: S-LAT, expected_tier: A}
+  - {id: LP-05, exercise: lat_pulldown, name: "Hip rise / thigh pad too loose", type: SET, station: S-LAT, expected_tier: A}
+  - {id: LP-06, exercise: lat_pulldown, name: "Grip width vs shoulder width", type: SET, station: S-FRONT, expected_tier: B}
+  - {id: LP-07, exercise: lat_pulldown, name: "Elbow path out of scapular plane", type: KIN, station: S-FRONT, expected_tier: abstain}
+
+  # --- Upper-back row ---------------------------------------------------------
+  - {id: UR-01, exercise: upper_back_row, name: "Elbow path too low (becomes lat row)", type: KIN, station: S-LAT, expected_tier: B}
+  - {id: UR-02, exercise: upper_back_row, name: "Torso swing", type: CMP, station: S-LAT, expected_tier: A}
+  - {id: UR-03, exercise: upper_back_row, name: "Incomplete retraction", type: ROM, station: S-REAR, expected_tier: B}
+  - {id: UR-04, exercise: upper_back_row, name: "Tempo collapse under fatigue", type: TMP, station: any, expected_tier: A}
+
+  # --- Leg extension ----------------------------------------------------------
+  - {id: LE-01, exercise: leg_extension, name: "Incomplete lockout", type: ROM, station: S-LAT, expected_tier: A}
+  - {id: LE-02, exercise: leg_extension, name: "Hip lift off seat", type: CMP, station: S-LAT, expected_tier: A}
+  - {id: LE-03, exercise: leg_extension, name: "Backrest / pivot misalignment", type: SET, station: S-LAT, expected_tier: A}
+  - {id: LE-04, exercise: leg_extension, name: "L/R ROM asymmetry", type: SYM, station: S-FRONT, expected_tier: B}
+  - {id: LE-05, exercise: leg_extension, name: "Eccentric drop", type: TMP, station: any, expected_tier: A}
+
+  # --- Leg curl ---------------------------------------------------------------
+  - {id: LC-01, exercise: leg_curl, name: "Hip rise / glute contribution", type: CMP, station: S-LAT, expected_tier: A}
+  - {id: LC-02, exercise: leg_curl, name: "Incomplete flexion", type: ROM, station: S-LAT, expected_tier: A}
+  - {id: LC-03, exercise: leg_curl, name: "Pad position on achilles", type: SET, station: S-LAT, expected_tier: B}
+  - {id: LC-04, exercise: leg_curl, name: "Eccentric drop", type: TMP, station: any, expected_tier: A}
+
+  # --- Leg press, quad bias ---------------------------------------------------
+  - {id: LQ-01, exercise: leg_press_quad_bias, name: "ROM depth", type: ROM, station: S-LAT, expected_tier: A}
+  - {id: LQ-02, exercise: leg_press_quad_bias, name: "Lumbar rounding at depth", type: KIN, station: S-LAT, expected_tier: B}
+  - {id: LQ-03, exercise: leg_press_quad_bias, name: "Foot placement height on platform", type: SET, station: S-LAT, expected_tier: A}
+  - {id: LQ-04, exercise: leg_press_quad_bias, name: "Knee lockout slam", type: TMP, station: S-LAT, expected_tier: A}
+
+  # --- Leg press, glute bias --------------------------------------------------
+  - {id: LG-01, exercise: leg_press_glute_bias, name: "Foot placement vs stated bias", type: SET, station: S-LAT, expected_tier: A}
+  - {id: LG-02, exercise: leg_press_glute_bias, name: "Insufficient hip flexion depth", type: ROM, station: S-LAT, expected_tier: A}
+  - {id: LG-03, exercise: leg_press_glute_bias, name: "Knee valgus under load", type: KIN, station: S-FRONT, expected_tier: abstain}
+
+  # --- Overhead tricep extension ----------------------------------------------
+  - {id: TE-01, exercise: overhead_tricep_extension, name: "Elbow drift forward", type: KIN, station: S-LAT, expected_tier: B}
+  - {id: TE-02, exercise: overhead_tricep_extension, name: "Incomplete stretch at bottom", type: ROM, station: S-LAT, expected_tier: A}
+  - {id: TE-03, exercise: overhead_tricep_extension, name: "Lumbar extension compensation", type: CMP, station: S-LAT, expected_tier: A}
+
+  # --- Tricep pushdown --------------------------------------------------------
+  - {id: TP-01, exercise: tricep_pushdown, name: "Elbow travel from ribs", type: CMP, station: S-LAT, expected_tier: A}
+  - {id: TP-02, exercise: tricep_pushdown, name: "Torso lean / bodyweight assist", type: CMP, station: S-LAT, expected_tier: A}
+  - {id: TP-03, exercise: tricep_pushdown, name: "Incomplete lockout", type: ROM, station: S-LAT, expected_tier: A}
+  - {id: TP-04, exercise: tricep_pushdown, name: "Cable origin height setting", type: SET, station: S-LAT, expected_tier: A}

@@ -1,0 +1,7 @@
+# Runtime. Pinned so every committed number regenerates identically (spec §10.6).
+numpy==2.5.3
+scipy==1.18.1
+PyYAML==6.0.3
+pydantic==2.13.5
+pyarrow==25.0.1
+opencv-python-headless==5.0.0.93

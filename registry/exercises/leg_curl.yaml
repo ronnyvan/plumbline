@@ -1,0 +1,17 @@
+id: leg_curl
+name: Leg curl
+aliases: [hamstring curl, seated leg curl, lying leg curl]
+equipment_class: selectorised_stack
+dominant_plane: sagittal
+primary_joints: [knee]
+rep_signal: knee_angle_mean
+rep_phase: {concentric: decreasing, eccentric: increasing}
+stations:
+  required: S-LAT
+  optional: []
+anchors: [seat_pad, thigh_pad, ankle_pad, pivot]
+rom_reference:
+  joint: knee
+  full_extension_deg: null
+  normalisation: torso_length
+cues: [LC-01, LC-02, LC-03, LC-04]

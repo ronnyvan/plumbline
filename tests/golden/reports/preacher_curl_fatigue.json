@@ -1,0 +1,317 @@
+{
+ "abstained_cues": [],
+ "coaching": null,
+ "diagnostics": {
+  "cue_results": [],
+  "segmentation": {
+   "confidence": 0.8689,
+   "noise_sigma": 0.2607,
+   "noise_to_range": 0.00259,
+   "orientation_confident": true,
+   "partial_reps": 0,
+   "reason": null,
+   "reps": [
+    {
+     "end": 152,
+     "first_phase": "concentric",
+     "index": 0,
+     "start": 45,
+     "turn_arrive": 83,
+     "turn_leave": 92
+    },
+    {
+     "end": 270,
+     "first_phase": "concentric",
+     "index": 1,
+     "start": 167,
+     "turn_arrive": 203,
+     "turn_leave": 214
+    },
+    {
+     "end": 390,
+     "first_phase": "concentric",
+     "index": 2,
+     "start": 284,
+     "turn_arrive": 319,
+     "turn_leave": 329
+    },
+    {
+     "end": 510,
+     "first_phase": "concentric",
+     "index": 3,
+     "start": 405,
+     "turn_arrive": 442,
+     "turn_leave": 448
+    },
+    {
+     "end": 632,
+     "first_phase": "concentric",
+     "index": 4,
+     "start": 527,
+     "turn_arrive": 565,
+     "turn_leave": 574
+    },
+    {
+     "end": 752,
+     "first_phase": "concentric",
+     "index": 5,
+     "start": 647,
+     "turn_arrive": 682,
+     "turn_leave": 691
+    },
+    {
+     "end": 870,
+     "first_phase": "concentric",
+     "index": 6,
+     "start": 765,
+     "turn_arrive": 800,
+     "turn_leave": 810
+    },
+    {
+     "end": 992,
+     "first_phase": "concentric",
+     "index": 7,
+     "start": 883,
+     "turn_arrive": 922,
+     "turn_leave": 932
+    },
+    {
+     "end": 1109,
+     "first_phase": "concentric",
+     "index": 8,
+     "start": 1006,
+     "turn_arrive": 1044,
+     "turn_leave": 1056
+    },
+    {
+     "end": 1232,
+     "first_phase": "concentric",
+     "index": 9,
+     "start": 1127,
+     "turn_arrive": 1162,
+     "turn_leave": 1173
+    }
+   ],
+   "selfsim": {
+    "agrees": true,
+    "count": 10,
+    "period_s": 4.033,
+    "strength": 0.945
+   },
+   "signal": "elbow_angle_mean",
+   "start_level": "high"
+  },
+  "station": {
+   "requested": "S-LAT",
+   "verification": "unavailable until equipment anchoring (M5)",
+   "verified": false
+  },
+  "subject_selection": {
+   "ambiguous": false,
+   "candidates": [
+    {
+     "anchor_proximity": 0.0,
+     "area": 0.1632,
+     "centrality": 0.8787,
+     "detections": 1278,
+     "motion": 0.0035,
+     "persistence": 1.0,
+     "score": 1.0
+    }
+   ],
+   "reason": null
+  }
+ },
+ "exercise": {
+  "id": "preacher_curl",
+  "name": "Preacher curl",
+  "notes": [
+   "Form-error detection isn't validated for this exercise yet. Showing rep quality metrics only.",
+   "These rep metrics haven't yet been checked against hand-annotated clips, so treat them as provisional."
+  ],
+  "tier": "B",
+  "tier_validated": false
+ },
+ "fired_cues": [],
+ "manifest_hash": "f4aca099535aee66582e1e87712da5c4e0a7da1d1eb0d6c141f5c99aa87f5c02",
+ "not_assessed": [
+  {
+   "cue_id": "PC-01",
+   "expected_tier": "A",
+   "reason": "detector_not_built"
+  },
+  {
+   "cue_id": "PC-02",
+   "expected_tier": "A",
+   "reason": "detector_not_built"
+  },
+  {
+   "cue_id": "PC-03",
+   "expected_tier": "A",
+   "reason": "detector_not_built"
+  },
+  {
+   "cue_id": "PC-04",
+   "expected_tier": "A",
+   "reason": "detector_not_built"
+  },
+  {
+   "cue_id": "PC-05",
+   "expected_tier": "B",
+   "reason": "detector_not_built"
+  },
+  {
+   "cue_id": "PC-06",
+   "expected_tier": "abstain",
+   "reason": "detector_not_built"
+  }
+ ],
+ "schema_version": 1,
+ "set_summary": {
+  "asymmetry_rom": {
+   "available": false,
+   "reason": "requires_frontal_or_rear_station",
+   "units": "ratio",
+   "value": null
+  },
+  "fatigue_slope_rom": {
+   "available": true,
+   "reason": null,
+   "units": "deg/rep",
+   "value": -4.4128
+  },
+  "fatigue_slope_rom_rel": {
+   "available": true,
+   "reason": null,
+   "units": "fraction/rep",
+   "value": -0.0487
+  },
+  "fatigue_slope_velocity": {
+   "available": true,
+   "reason": null,
+   "units": "deg/s per rep",
+   "value": -3.5773
+  },
+  "partial_reps": {
+   "available": true,
+   "reason": null,
+   "units": "count",
+   "value": 0
+  },
+  "reps": {
+   "available": true,
+   "reason": null,
+   "units": "count",
+   "value": 10
+  },
+  "rom_cv": {
+   "available": true,
+   "reason": null,
+   "units": "ratio",
+   "value": 0.1399
+  },
+  "rom_per_rep": {
+   "available": true,
+   "reason": null,
+   "units": "deg",
+   "value": [
+    110.6128,
+    105.6893,
+    101.5422,
+    97.6489,
+    93.1955,
+    88.1367,
+    83.7364,
+    80.0785,
+    75.6089,
+    70.2315
+   ]
+  },
+  "tempo": {
+   "available": true,
+   "reason": null,
+   "units": "s",
+   "value": [
+    {
+     "concentric_s": 1.267,
+     "eccentric_s": 2.0,
+     "first_phase": "concentric",
+     "start_pause_s": 0.5,
+     "turnaround_pause_s": 0.3
+    },
+    {
+     "concentric_s": 1.2,
+     "eccentric_s": 1.867,
+     "first_phase": "concentric",
+     "start_pause_s": 0.467,
+     "turnaround_pause_s": 0.367
+    },
+    {
+     "concentric_s": 1.167,
+     "eccentric_s": 2.033,
+     "first_phase": "concentric",
+     "start_pause_s": 0.5,
+     "turnaround_pause_s": 0.333
+    },
+    {
+     "concentric_s": 1.233,
+     "eccentric_s": 2.067,
+     "first_phase": "concentric",
+     "start_pause_s": 0.567,
+     "turnaround_pause_s": 0.2
+    },
+    {
+     "concentric_s": 1.267,
+     "eccentric_s": 1.933,
+     "first_phase": "concentric",
+     "start_pause_s": 0.5,
+     "turnaround_pause_s": 0.3
+    },
+    {
+     "concentric_s": 1.167,
+     "eccentric_s": 2.033,
+     "first_phase": "concentric",
+     "start_pause_s": 0.433,
+     "turnaround_pause_s": 0.3
+    },
+    {
+     "concentric_s": 1.167,
+     "eccentric_s": 2.0,
+     "first_phase": "concentric",
+     "start_pause_s": 0.433,
+     "turnaround_pause_s": 0.333
+    },
+    {
+     "concentric_s": 1.3,
+     "eccentric_s": 2.0,
+     "first_phase": "concentric",
+     "start_pause_s": 0.467,
+     "turnaround_pause_s": 0.333
+    },
+    {
+     "concentric_s": 1.267,
+     "eccentric_s": 1.767,
+     "first_phase": "concentric",
+     "start_pause_s": 0.6,
+     "turnaround_pause_s": 0.4
+    },
+    {
+     "concentric_s": 1.167,
+     "eccentric_s": 1.967,
+     "first_phase": "concentric",
+     "start_pause_s": null,
+     "turnaround_pause_s": 0.367
+    }
+   ]
+  },
+  "tut": {
+   "available": true,
+   "reason": null,
+   "units": "s",
+   "value": 31.8667
+  }
+ },
+ "status": "analysed",
+ "submission_abstention": null,
+ "trend": null
+}

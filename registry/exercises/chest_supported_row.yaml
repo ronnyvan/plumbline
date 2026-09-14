@@ -1,0 +1,17 @@
+id: chest_supported_row
+name: Chest-supported row
+aliases: [transverse row, t-bar row machine, seated chest-supported row, machine row]
+equipment_class: chest_supported_machine
+dominant_plane: sagittal
+primary_joints: [elbow, shoulder]
+rep_signal: elbow_angle_mean
+rep_phase: {concentric: decreasing, eccentric: increasing}
+stations:
+  required: S-LAT
+  optional: [S-REAR]                  # unlocks CR-04
+anchors: [chest_pad, seat_pad, handles]
+rom_reference:
+  joint: elbow
+  full_extension_deg: null
+  normalisation: torso_length
+cues: [CR-01, CR-02, CR-03, CR-04, CR-05]

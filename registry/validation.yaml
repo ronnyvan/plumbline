@@ -1,0 +1,25 @@
+# Tier promotions (spec §2.3, D-09).
+#
+# An exercise reaches Tier B only when its rep segmentation passes the §10 L2 gates
+# (rep-count MAE < 0.5, off-by-one accuracy > 0.90) on hand-annotated REAL clips.
+# A cue reaches Tier A only with labeled data, alpha >= 0.67, calibration, SC-2 and SC-3.
+#
+# Each promotion must cite a committed file under eval/results/ whose evidence is marked
+# admissible. Synthetic results are never admissible. Promotions are made by hand, in a
+# reviewed change — never written by a script.
+
+tier_b:
+  lat_pulldown: {validated: false, evidence: null}
+  preacher_curl: {validated: false, evidence: null}
+  incline_press: {validated: false, evidence: null}
+  pec_fly: {validated: false, evidence: null}
+  chest_supported_row: {validated: false, evidence: null}
+  upper_back_row: {validated: false, evidence: null}
+  leg_extension: {validated: false, evidence: null}
+  leg_curl: {validated: false, evidence: null}
+  leg_press_quad_bias: {validated: false, evidence: null}
+  leg_press_glute_bias: {validated: false, evidence: null}
+  overhead_tricep_extension: {validated: false, evidence: null}
+  tricep_pushdown: {validated: false, evidence: null}
+
+tier_a_cues: {}

@@ -1,0 +1,17 @@
+id: leg_extension
+name: Leg extension
+aliases: [knee extension, quad extension]
+equipment_class: selectorised_stack
+dominant_plane: sagittal
+primary_joints: [knee]
+rep_signal: knee_angle_mean
+rep_phase: {concentric: increasing, eccentric: decreasing}
+stations:
+  required: S-LAT
+  optional: [S-FRONT]                 # unlocks LE-04
+anchors: [seat_pad, backrest, shin_pad, pivot]
+rom_reference:
+  joint: knee
+  full_extension_deg: null
+  normalisation: torso_length
+cues: [LE-01, LE-02, LE-03, LE-04, LE-05]
